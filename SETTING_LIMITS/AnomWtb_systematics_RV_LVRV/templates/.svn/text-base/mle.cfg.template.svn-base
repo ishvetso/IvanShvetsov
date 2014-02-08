@@ -1,0 +1,143 @@
+	observables = 
+	{
+	   	MtW = 
+		{
+			range = (0.0, 1.0);
+	       		nbins = 50;
+	   	};
+	};
+ 
+
+     
+//the parameters of the model are the poisson means of the expected number of signal
+// and background events
+	parameters = ("QCD", "W");
+
+	QCD_weights = 
+	{
+    
+
+    		MtW = 
+		{
+        
+        		QCD = 
+			{ 
+            			coefficient-function = {type = "multiply"; factors = ("W");};
+            			histogram = 
+				{
+	                		type = "root_histogram";
+					filename = "%INPUT_DIR%/W-like.root";
+					histoname = "W-like";
+					zerobin_fillfactor = 0.00001;
+            			};
+        		};
+        
+        
+        		Sumsimul = 
+			{
+            			coefficient-function = {type = "multiply"; factors = ("QCD"); };
+		        	histogram = 
+				{
+	                		type = "root_histogram";
+					filename = "%INPUT_DIR%/QCD.root";		
+					histoname = "QCD";
+					zerobin_fillfactor = 0.00001;
+            			};
+        		};
+    		};
+
+    		parameter-distribution = 
+		{
+	       		type ="product_distribution";
+ 		       	distributions =("@QCD-dist", "@W-dist");
+		};
+	
+	
+	
+	
+
+	
+	
+	}; //ending thetafirst model
+
+	W-dist = 
+	{
+			type = "flat_distribution";
+			W = 
+			{
+				range = (0.0, "inf");
+				fix-sample-value = 1.0;	
+			};
+		
+	};
+
+	 QCD-dist = 
+	{
+			type = "flat_distribution";
+			QCD = 
+			{
+				range = (0.0, "inf");
+				fix-sample-value = 1.0;		
+			};		
+	};
+   
+
+
+
+	mle = 
+	{
+ 		
+		type = "mle";
+    		name = "mle";
+    		parameters = ("W", "QCD");
+    		minimizer = "@myminuit";
+    
+	};
+
+	myminuit = 
+	{
+   		type = "root_minuit";
+	};
+
+	
+
+	
+
+
+main = {
+
+   
+   data_source = 
+	{
+         	type = "histo_source";
+        	MtW = 
+
+	{
+		type = "root_histogram";
+		filename = "%INPUT_DIR%/data.root"; 
+		histoname = "data"; 
+	};
+	
+		name = "source"; 
+   	};
+   
+   //model to pass to the producers:
+   model = "@QCD_weights";
+
+   //the producers to run:
+   producers = ("@mle");
+
+   //number of PE to run
+   n-events = 1;
+   
+   // where to write the results and logging info, etc.:
+   output_database = {
+        type = "sqlite_database";
+        filename = "%OUTPUT_DIR%/%DB_FILE_NAME%";
+    };
+    
+};
+
+options = {
+  plugin_files = ("$THETA_DIR/lib/core-plugins.so", "$THETA_DIR/lib/root.so");
+};

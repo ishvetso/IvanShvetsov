@@ -1,0 +1,717 @@
+#!/bin/bash
+
+CURRENT_DIR=`pwd`
+
+#####################
+#  S E T T I N G S  #
+#####################
+
+
+# Name of this script
+PACKAGE=xsec
+
+# Detecting where this script is located - this will be 'utility' directory
+# This folder is used to get environment script and theta configuration templates
+UTILITY_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+
+# Getting default paths from environment file
+#
+# Variables to be set:
+#   CMSSW_DIR
+#     Location of current CMSSW release
+#     Use -C option to change
+#
+#   THETA_DIR
+#     Location of THETA package
+#     Use -T option to change
+#
+source $UTILITY_DIR/env.sh
+
+
+# The workspace will hold all outputs of this script
+# By default workspace is set to the place, where this script is run from, i.e. current folder
+# Can be modified manually using -w option
+WORKSPACE=`pwd`
+
+
+# This variable holds path to default makeTuples directory, where corresponding nTuples are located
+# Rather than modify it here consider using -m option
+MAKETUPLES_DIR=/afs/cern.ch/work/i/imyagkov/public/distributions/2013-10-01_5fb_CSV_nosplit/makeTuples
+
+
+# Location where NN_ttbar_NN_Wjets histograms will be stored
+# By default points to subfolder of the workspace
+# Use -H option to change
+HIST_OUTPUT_DIR=$WORKSPACE/NN_ttbar_NN_Wjets
+
+
+# Database file name to get QCD weight from
+# Can be modified using -d option
+DB_FILE_NAME=MLE.db
+
+# Name of quantile configuration template, which is located in utitlity space
+# Use -Q option to specify
+QUANTILE_CONFIG_TEMPLATE=quant.cfg
+PDF_TEMPLATE=PDF.cfg
+NOMINAL_PSEUDODATA_CH=nominal_pseudodata_comphep.cfg
+NOMINAL_PSEUDODATA_PW=nominal_pseudodata_powheg.cfg
+MATCHING_TEMPLATE=matching.cfg
+SCALE_TEMPLATE=Q2.cfg
+TRIG_TEMPLATE=trig.cfg
+
+# Name of quantiles configuration file to be produced from the template
+# Use -c option to change
+QUANTILE_CONFIG=quant__sigma_t-ch_wjets_splitted.cfg
+
+
+# Name of systematics include template, which is located in utility space
+# Use -S option to change
+SYSTEMATICS_CONFIG_TEMPLATE=systematics_include_wjets_splitted.cfg
+SYSTEMATICS_CONFIG_WITHOUT_BB_TEMPLATE=systematics_include_wjets_splitted_without_bb.cfg
+
+
+# Name of systematics include file to be generated from corresponding template
+# Use -s option to change
+SYSTEMATICS_CONFIG=systematics_include.cfg
+SYSTEMATICS_CONFIG_WITHOUT_BB=systematics_include_without_bb.cfg
+
+
+# Name of the parameter to be used in quantile configuration template
+# It can be changed with  option
+QUANTILE_PARAMETER=sigma_t_ch
+
+
+# Name of the generator used in include configuration template
+# Use -g option to change it
+GENERATOR=pw
+
+
+# THETA will use this file name to save its output
+# Use -o to change
+THETA_OUTPUT=quantiles_sigma_t_ch.root
+
+
+# If this variable is set to 1 all utilities will be forced to recompile
+#
+# Utilities to be recompiled:
+#   hists_qcd
+#
+# Use -r option to set it to 1
+#RECOMPILE=0
+
+
+# Verbosity of this script
+# If set to 1 it will yield more information
+# Useful for debug purposes
+# Use -v option for verbose output
+VERBOSE=0
+
+
+IS_EPS=0
+HIST_UTIL=hist_creater_theta
+ONLY_GET_XSEC=0
+
+#This for statistical uncertainty
+STAT_CONFIG=stat_unc_wjets_splitting.cfg
+
+###################################
+#  P A R S I N G   O P T I O N S  #
+###################################
+
+
+while test $# -gt 0; do
+        case "$1" in
+                -h|--help)
+                        echo " "
+                        echo "$PACKAGE - runs cross-section calculation sequence"
+                        echo " Usage: $PACKAGE [options]"
+                        echo " "
+                        echo "  -w, --workspace <directory>"
+                        echo "    Sets current workspace."
+                        echo "    Default:"
+                        echo "      $WORKSPACE"
+                        echo " "
+                        echo "  -m, --makeTuples-dir <directory>"
+                        echo "    Sets relevant makeTuples directory."
+                        echo "    Default:"
+                        echo "      $MAKETUPLES_DIR"
+                        echo " "
+                        echo "  -g, --generator <value>"
+                        echo "    Specifies generator, which samples are used to calculate cross-section."
+                        echo "    Valid values:"
+                        echo "      ch - for CompHEP"
+                        echo "      pw - for POWHEG"
+                        echo "    Default:"
+                        echo "      $GENERATOR"
+                        echo " "
+                        echo "  --hist"
+                        echo "    Sets current tool for histograms production."
+                        echo "    Valid values:"
+                        echo "      hist_creater_theta"
+                        echo "      hists2D"
+                        echo "    Default value:"
+                        echo "      $HIST_UTIL"
+                        echo " "
+#                        echo "  -r, --recompile"
+#                        echo "    Forces recompiling of all utilities."
+#                        echo " "
+                        echo "  -v, --verbose"
+                        echo "    Use verbose output."
+                        echo " "
+                        echo "  -h, --help"
+                        echo "    Shows this help message"
+                        echo " "
+                        echo " "
+                        echo " Other options:"
+                        echo "  -d, --database <file name>"
+                        echo "    Sets file name of database where QCD weight is stored."
+                        echo "    This weight will be used in '$HIST_UTIL'"
+                        echo "    Default:"
+                        echo "      $DB_FILE_NAME"
+                        echo " "
+                        echo "  -H, --hist-output-dir <directory>"
+                        echo "    Sets output directory for '$HIST_UTIL', where NN_ttbar_NN_Wjets histograms will be stored."
+                        echo "    By default it is located in the workspace directory."
+                        echo "    Default:"
+                        echo "      $HIST_OUTPUT_DIR"
+                        echo " "
+                        echo "  --quantile-parameter <value>"
+                        echo "    Sets quantile parameter to be used in quantile configuration template."
+                        echo "    Default:"
+                        echo "      $QUANTILE_PARAMETER"
+                        echo " "
+                        echo "  --quantile-config-template <file name>"
+                        echo "    Sets name of quantile configuration template."
+                        echo "    It should be stored in templates directory in utility space."
+                        echo "    Default:"
+                        echo "      $QUANTILE_CONFIG_TEMPLATE"
+                        echo " "
+                        echo "  --quantile-config <file name>"
+                        echo "    Sets name of quantile configuration to be generated from corresponding template."
+                        echo "    This configuration will be stored in the workspace."
+                        echo "    Default:"
+                        echo "      $QUANTILE_CONFIG"
+                        echo " "
+                        echo "  --syst-config-template <file name>"
+                        echo "    Sets name of systematics configuration template."
+                        echo "    It should be stored in templates directory in utility space."
+                        echo "    Default:"
+                        echo "      $SYSTEMATICS_CONFIG_TEMPLATE"
+                        echo " "
+                        echo "  --syst-config <file name>"
+                        echo "    Sets name of systematics configuration to be generated from corresponding template."
+                        echo "    Further this configuration will be included into quantile configuration."
+                        echo "    It will be stored in the workspace."
+                        echo "    Default:"
+                        echo "      $SYSTEMATICS_CONFIG"
+                        echo " "
+                        echo "  -o, --theta-output <file name>"
+                        echo "    Sets name of file to be generated by THETA as output."
+                        echo "    This configuration will be stored in the workspace."
+                        echo "    Default:"
+                        echo "      $THETA_OUTPUT"
+                        echo " "
+                        echo "  --cmssw-dir <directory>"
+                        echo "    Sets location of CMSSW release."
+                        echo "    Default:"
+                        echo "      $CMSSW_DIR"
+                        echo " "
+                        echo "  --theta-dir <directory>"
+                        echo "    Sets location of THETA package."
+                        echo "    Default:"
+                        echo "      $THETA_DIR"
+                        echo " "
+                        exit 0
+                        ;;
+                -w|--workspace)
+                        shift
+                        if test $# -gt 0; then
+                                WORKSPACE=`readlink -f $1`
+                                HIST_OUTPUT_DIR="$WORKSPACE/NN_ttbar_NN_Wjets"
+                        else
+                            	echo "$PACKAGE: Workspace must be specified when using option -w or --workspace."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                -m|--makeTuples-dir)
+                        shift
+                        if test $# -gt 0; then
+                                MAKETUPLES_DIR=`readlink -f $1`
+                        else
+                            	echo "$PACKAGE: makeTuples directory must be specified when using option -m or --makeTuples-dir."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                -g|--generator)
+                        shift
+                        if test $# -gt 0; then
+                                if [ "$1" != "ch" -a "$1" != "pw" ]; then
+                                        echo "$PACKAGE: '$1' is invalid value for Generator option. Use 'ch' or 'pw' instead."
+                                        exit 1
+                                fi
+                                GENERATOR=$1
+                        else
+                            	echo "$PACKAGE: Generator must be specified when using option -g or --generator."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --hist)
+                        shift
+                        if test $# -gt 0; then
+                                if [ "$1" != "hist_creater_theta" -a "$1" != "hists2D" ]; then
+                                        echo "$PACKAGE: '$1' is invalid value for histogram utility option. Use 'hist_creater_theta' or 'hists2D' instead."
+                                        exit 1
+                                fi
+                                HIST_UTIL=$1
+                        else
+                                echo "$PACKAGE: Histogram creating utility must be specified when using option --hist."
+                               	exit 1
+                        fi
+                        shift
+                       	;;
+                --isEps)
+                        shift
+                        IS_EPS=1
+                        ;;
+                --get-xsec)
+                        ONLY_GET_XSEC=1
+                        shift
+                        ;;
+#                -r|--recompile)
+#                        RECOMPILE=1
+#                        shift
+#                        ;;
+                -v|--verbose)
+                        VERBOSE=1
+                        shift
+                        ;;
+
+############### Other options ###
+
+                -d|--database)
+                        shift
+                        if test $# -gt 0; then
+                                DB_FILE_NAME=$1
+                        else
+                            	echo "$PACKAGE: Database file name must be specified when using option -d or --database."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                -H|--hist-output-dir)
+                        shift
+                        if test $# -gt 0; then
+                                HIST_OUTPUT_DIR=`readlink -f $1`
+                        else
+                                echo "$PACKAGE: Output directory for histograms must be specified when using option -H or --hist-output-dir."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --quantile-parameter)
+                        shift
+                        if test $# -gt 0; then
+                                QUANTILE_PARAMETER=$1
+                        else
+                            	echo "$PACKAGE: Quantile parameter must be specified when using option --quantile-parameter."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --quantile-config-template)
+                        shift
+                        if test $# -gt 0; then
+                                QUANTILE_CONFIG_TEMPLATE=$1
+                        else
+                            	echo "$PACKAGE: Quantile configuration template must be specified when using option --quantile-config-template."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --quantile-config)
+                        shift
+                        if test $# -gt 0; then
+                                QUANTILE_CONFIG=$1
+                        else
+                            	echo "$PACKAGE: Quantile configuration file name must be specified when using option --quantile-config."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --syst-config-template)
+                        shift
+                        if test $# -gt 0; then
+                                SYSTEMATICS_CONFIG_TEMPLATE=$1
+                        else
+                            	echo "$PACKAGE: Systematics configuration template must be specified when using option --syst-config-template."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --syst-config)
+                        shift
+                        if test $# -gt 0; then
+                                SYSTEMATICS_CONFIG=$1
+                        else
+                            	echo "$PACKAGE: Systematics configuration file name must be specified when using option --syst-config."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                -o|--theta-output)
+                        shift
+                        if test $# -gt 0; then
+                                THETA_OUTPUT=$1
+                        else
+                            	echo "$PACKAGE: THETA output file name must be specified when using option -o or --theta-output."
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --theta-dir)
+                        shift
+                        if test $# -gt 0; then
+                                THETA_DIR=`readlink -f $1`
+                        else
+                                echo "$PACKAGE: THETA directory must be specified when using option --theta-dir"
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                --cmssw-dir)
+                        shift
+                        if test $# -gt 0; then
+                                CMSSW_DIR=`readlink -f $1`
+                        else
+                            	echo "$PACKAGE: CMSSW directory must be specified when using option --cmssw-dir"
+                                exit 1
+                        fi
+                        shift
+                        ;;
+                *)
+                        break
+                        ;;
+        esac
+done
+
+
+#####################################
+#  R U N N I N G   S E Q U E N C E  #
+#####################################
+
+
+if [ $ONLY_GET_XSEC -eq 0 ]; then
+
+    if [ $VERBOSE -eq 1 ]; then
+        VERBOSE_ARG=-v
+        echo "Current workspace: $WORKSPACE"
+        echo "Going to utility dir: $UTILITY_DIR"
+    fi
+
+    cd $UTILITY_DIR
+    source modernROOT.sh
+    cd hist	
+
+#    if [ $RECOMPILE -eq 1 ]; then
+#        if [ $VERBOSE -eq 1 ]; then
+#            echo " "
+#            echo "Recompiling $HIST_UTIL"
+#        fi
+        #make $HIST_UTIL > /dev/null
+        #g++ -o hist_creater_theta hist_creater_theta.cpp --std=c++11 `root-config --cflags --libs` -O2 -I./
+#    fi
+
+   echo "DB filename: $WORKSPACE/$DB_FILE_NAME"
+    QCD_WEIGHT=`echo 'select mle__QCD from products;' | sqlite3 $WORKSPACE/$DB_FILE_NAME`
+
+    if [ $IS_EPS -eq 1 ]; then
+        EPS_ARG=`echo -e '\055e'`
+    fi
+
+    if [ $VERBOSE -eq 1 ]; then
+        echo " "
+        echo "Running $HIST_UTIL"
+        echo "  makeTuples : $MAKETUPLES_DIR"
+        echo "  Output     : $HIST_OUTPUT_DIR"
+        echo "  DB name    : $DB_FILE_NAME"
+        echo "  QCD weight : $QCD_WEIGHT"
+        echo "  EPS        : $IS_EPS"
+        echo " "
+    else
+        echo "Wait for the histograms being prepared..."
+    fi
+
+    
+
+    echo " "
+
+   #./$HIST_UTIL -m $MAKETUPLES_DIR -o $HIST_OUTPUT_DIR -w $QCD_WEIGHT -g $GENERATOR $EPS_ARG $VERBOSE_ARG
+   
+
+    if [ $VERBOSE -eq 1 ]; then
+        echo " "
+        echo "Going to CMSSW dir: $CMSSW_DIR/src/"
+        echo "Setting CMSSW environment"
+    fi
+
+    cd $CMSSW_DIR/src/
+    eval `scramv1 runtime -sh`
+
+
+    cd $WORKSPACE
+
+    if [ $VERBOSE -eq 1 ]; then
+        echo " "
+        echo "Generating THETA configurations"
+        echo "  src   : $UTILITY_DIR/templates/$QUANTILE_CONFIG_TEMPLATE"
+        echo "  dest  : $WORKSPACE/$QUANTILE_CONFIG"
+        echo "    %INPUT_DIR%           => $HIST_OUTPUT_DIR"
+        echo "    %OUTPUT_DIR%          => $WORKSPACE"
+        echo "    %OUTPUT_FILENAME%     => $THETA_OUTPUT"
+        echo "    %PARAMETER%           => $QUANTILE_PARAMETER"
+        echo "    %SYSTEMATICS_CONFIG%  => $SYSTEMATICS_CONFIG"
+        echo " "
+        echo "  src   : $UTILITY_DIR/templates/include/$SYSTEMATICS_CONFIG_TEMPLATE"
+        echo "  dest  : $WORKSPACE/include/$SYSTEMATICS_CONFIG"
+        echo "    %INPUT_DIR%           => $HIST_OUTPUT_DIR"
+        echo "    %GENERATOR%           => $GENERATOR"
+        echo " "
+    fi
+
+    # Preparing THETA configurations
+    
+    #Creating the necessary directories if not exist
+    mkdir -p $WORKSPACE/include
+    mkdir -p $WORKSPACE/quantiles
+    mkdir -p $WORKSPACE/PDF
+    mkdir -p $WORKSPACE/matching
+    mkdir -p $WORKSPACE/scale
+    mkdir -p $WORKSPACE/trig
+    mkdir -p $WORKSPACE/results
+    mkdir -p $WORKSPACE/results/matching
+    mkdir -p $WORKSPACE/results/scale
+    mkdir -p $WORKSPACE/results/quantiles
+    mkdir -p $WORKSPACE/results/stat_uncertainty
+    mkdir -p $WORKSPACE/results/PDF_uncertainty
+    mkdir -p $WORKSPACE/results/trig
+  
+    # Configuration for quantiles is included
+    cp $UTILITY_DIR/templates/include/$SYSTEMATICS_CONFIG_TEMPLATE $WORKSPACE/include/$SYSTEMATICS_CONFIG
+    sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/include/$SYSTEMATICS_CONFIG
+    sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/include/$SYSTEMATICS_CONFIG
+    
+    # Configuration for statistical uncertainty
+    cp $UTILITY_DIR/templates/$STAT_CONFIG $WORKSPACE/$STAT_CONFIG
+    sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/$STAT_CONFIG
+    sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/$STAT_CONFIG
+    sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results\\/stat_uncertainty/g" $WORKSPACE/$STAT_CONFIG
+    
+    THETA_OUTPUT="stat_uncertainty.root"
+    sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/$STAT_CONFIG
+     
+     # Configuration for studying uncertainties on pseudodata
+    cp $UTILITY_DIR/templates/include/$SYSTEMATICS_CONFIG_WITHOUT_BB_TEMPLATE $WORKSPACE/include/$SYSTEMATICS_CONFIG_WITHOUT_BB
+    sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/include/$SYSTEMATICS_CONFIG_WITHOUT_BB
+    sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/include/$SYSTEMATICS_CONFIG_WITHOUT_BB
+  
+   echo "Configurations for quantiles are run..."
+   for QUANTILE_PARAMETER in "trig" "sigmaDY" "sigmaQCD" "pile_up" "Tag" "Mistag" "JEC" "JER" "METUncl" "sigmaDiboson" "sigma_s_ch" "LV" "LT" "sigma_tw_ch" "sigmaTtbar" "sigmaWjets_WQQ" "sigmaWjets_W_light" "sigmaWjets_W_other" "sigmaWjets_Wc"
+   do
+      QUANTILE_CONFIG="quant_$QUANTILE_PARAMETER.cfg"
+      THETA_OUTPUT="quant_$QUANTILE_PARAMETER.root"
+      
+      cp $UTILITY_DIR/templates/$QUANTILE_CONFIG_TEMPLATE $WORKSPACE/quantiles/$QUANTILE_CONFIG
+      sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/quantiles/$QUANTILE_CONFIG
+      sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results\\/quantiles/g" $WORKSPACE/quantiles/$QUANTILE_CONFIG
+      sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/quantiles/$QUANTILE_CONFIG
+      sed -i "s/%PARAMETER%/${QUANTILE_PARAMETER//\//\\/}/g" $WORKSPACE/quantiles/$QUANTILE_CONFIG
+      sed -i "s/%SYSTEMATICS_CONFIG%/${SYSTEMATICS_CONFIG//\//\\/}/g" $WORKSPACE/quantiles/$QUANTILE_CONFIG
+       sed -i "s/%WORK_DIR%/${WORKSPACE//\//\\/}/g" $WORKSPACE/quantiles/$QUANTILE_CONFIG
+
+      if [ $VERBOSE -eq 1 ]; then
+      echo "Running THETA..."
+      fi
+
+      
+      $THETA_DIR/bin/theta $WORKSPACE/quantiles/$QUANTILE_CONFIG & 
+      
+   done    
+  
+   echo "Configuration for statistical uncertainty is run..."
+ # $THETA_DIR/bin/theta $WORKSPACE/$STAT_CONFIG &  
+  echo " "
+  
+  echo "Configurations for PDFs are run..."
+   for PDF_NUMBER in 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+   do
+	for PDF_VARTYPE in "Up" "Down"
+	do
+	PDF_CONFIG="PDF_$PDF_VARTYPE$PDF_NUMBER.cfg"
+	THETA_OUTPUT="PDF_$PDF_VARTYPE$PDF_NUMBER.root"
+	cp $UTILITY_DIR/templates/$PDF_TEMPLATE $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results\\/PDF_uncertainty/g" $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%SYSTEMATICS_CONFIG%/${SYSTEMATICS_CONFIG_WITHOUT_BB//\//\\/}/g" $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%DIR%/${PDF_VARTYPE//\//\\/}/g" $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%NUM%/${PDF_NUMBER//\//\\/}/g" $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%WORK_DIR%/${WORKSPACE//\//\\/}/g" $WORKSPACE/PDF/$PDF_CONFIG
+	sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/PDF/$PDF_CONFIG
+	$THETA_DIR/bin/theta $WORKSPACE/PDF/$PDF_CONFIG &
+	echo " "
+	done
+   done
+  
+   # nominal for pseudo-data
+   THETA_OUTPUT="nominal_pseudodata_comphep.root"
+  cp $UTILITY_DIR/templates/$NOMINAL_PSEUDODATA_CH $WORKSPACE/$NOMINAL_PSEUDODATA_CH
+  sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_CH
+  sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results/g" $WORKSPACE/$NOMINAL_PSEUDODATA_CH
+  sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_CH
+  sed -i "s/%SYSTEMATICS_CONFIG%/${SYSTEMATICS_CONFIG_WITHOUT_BB//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_CH
+  sed -i "s/%WORK_DIR%/${WORKSPACE//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_CH
+  sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_CH
+  
+  THETA_OUTPUT="nominal_pseudodata_powheg.root"
+  cp $UTILITY_DIR/templates/$NOMINAL_PSEUDODATA_PW $WORKSPACE/$NOMINAL_PSEUDODATA_PW
+  sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_PW
+  sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results/g" $WORKSPACE/$NOMINAL_PSEUDODATA_PW
+  sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_PW
+  sed -i "s/%SYSTEMATICS_CONFIG%/${SYSTEMATICS_CONFIG_WITHOUT_BB//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_PW
+  sed -i "s/%WORK_DIR%/${WORKSPACE//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_PW
+  sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/$NOMINAL_PSEUDODATA_PW
+ 
+  echo "Configurations for nominal_pseudodata are run..."
+  $THETA_DIR/bin/theta $WORKSPACE/$NOMINAL_PSEUDODATA_PW &
+  $THETA_DIR/bin/theta $WORKSPACE/$NOMINAL_PSEUDODATA_CH &
+  echo " "  
+  #matching
+  echo "Configurations for matching are run..."
+  for MATCHING_PROCESS in "Wjets" "ttbar"
+  do
+  
+
+    for MATCHING_VAR in "Up" "Down"
+    do
+    
+      MATCHING_CFG="matching_$MATCHING_PROCESS$MATCHING_VAR.cfg"
+      cp $UTILITY_DIR/templates/$MATCHING_TEMPLATE $WORKSPACE/matching/$MATCHING_CFG
+      sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+      sed -i "s/%SYSTEMATICS_CONFIG%/${SYSTEMATICS_CONFIG_WITHOUT_BB//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+      sed -i "s/%WORK_DIR%/${WORKSPACE//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+      sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results\\/matching/g" $WORKSPACE/matching/$MATCHING_CFG
+      sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+      THETA_OUTPUT=$MATCHING_PROCESS"_matching$MATCHING_VAR.root"
+      sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+      if [ "$MATCHING_PROCESS" == "Wjets" ]	
+      then
+	 NAME="_matching$MATCHING_VAR"
+	 NO_NAME=""
+	 sed -i "s/%WJETS_MATCHING%/${NAME//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+	 sed -i "s/%TTBAR_MATCHING%/${NO_NAME//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+      fi  	
+      if [ "$MATCHING_PROCESS" == "ttbar" ]	
+      then
+	 NAME="_matching$MATCHING_VAR"
+	 NO_NAME=""
+	 sed -i "s/%WJETS_MATCHING%/${NO_NAME//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+	 sed -i "s/%TTBAR_MATCHING%/${NAME//\//\\/}/g" $WORKSPACE/matching/$MATCHING_CFG
+      fi  	
+      
+      $THETA_DIR/bin/theta $WORKSPACE/matching/$MATCHING_CFG & 
+      echo " "
+    done
+  done
+  
+  echo "Configurations for scale are run..."
+  #Q2
+  for SCALE_PROCESS in "Wjets" "ttbar" "tW_ch" "t_ch"
+  do
+  
+
+    for SCALE_VAR in "Up" "Down"
+    do
+    
+      SCALE_CFG="scale_$SCALE_PROCESS$SCALE_VAR.cfg"
+      cp $UTILITY_DIR/templates/$SCALE_TEMPLATE $WORKSPACE/scale/$SCALE_CFG
+      sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      sed -i "s/%SYSTEMATICS_CONFIG%/${SYSTEMATICS_CONFIG_WITHOUT_BB//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      sed -i "s/%WORK_DIR%/${WORKSPACE//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results\\/scale/g" $WORKSPACE/scale/$SCALE_CFG
+      THETA_OUTPUT=$SCALE_PROCESS"_Q2$SCALE_VAR.root"
+      sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      if [ "$SCALE_PROCESS" == "Wjets" ]	
+      then
+	 NAME="_Q2$SCALE_VAR"
+	 NO_NAME=""
+	 sed -i "s/%WJETS_Q2%/${NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TTBAR_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TW_CHANNEL_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%T_CHANNEL_Q2%/${GENERATOR//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      fi  	
+      
+      if [ "$SCALE_PROCESS" == "ttbar" ]	
+      then
+	 NAME="_Q2$SCALE_VAR"
+	 NO_NAME=""
+	 sed -i "s/%WJETS_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TTBAR_Q2%/${NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TW_CHANNEL_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%T_CHANNEL_Q2%/${GENERATOR//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      fi
+      
+      if [ "$SCALE_PROCESS" == "tW_ch" ]	
+      then
+	 NAME="_Q2$SCALE_VAR"
+	 NO_NAME=""
+	 sed -i "s/%WJETS_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TTBAR_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TW_CHANNEL_Q2%/${NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%T_CHANNEL_Q2%/${GENERATOR//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      fi   	
+      
+      if [ "$SCALE_PROCESS" == "t_ch" ]	
+      then
+	 NAME="_Q2$SCALE_VAR"
+	 NO_NAME=""
+	 SIGNAL="pw_Q2$SCALE_VAR"
+	 sed -i "s/%WJETS_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TTBAR_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%TW_CHANNEL_Q2%/${NO_NAME//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+	 sed -i "s/%T_CHANNEL_Q2%/${SIGNAL//\//\\/}/g" $WORKSPACE/scale/$SCALE_CFG
+      fi 
+   
+       $THETA_DIR/bin/theta $WORKSPACE/scale/$SCALE_CFG & 
+   
+    done
+  done
+  
+  echo "Configurations for trigger uncertainty are run..."
+for TRIG_VARTYPE in "Up" "Down"
+    do
+    TRIG_CONFIG="trig_$TRIG_VARTYPE.cfg"
+    THETA_OUTPUT="trig_$TRIG_VARTYPE.root"
+    cp $UTILITY_DIR/templates/$TRIG_TEMPLATE $WORKSPACE/trig/$TRIG_CONFIG
+    sed -i "s/%INPUT_DIR%/${HIST_OUTPUT_DIR//\//\\/}/g" $WORKSPACE/trig/$TRIG_CONFIG
+    sed -i "s/%OUTPUT_DIR%/${WORKSPACE//\//\\/}\\/results\\/trig/g" $WORKSPACE/trig/$TRIG_CONFIG
+    sed -i "s/%OUTPUT_FILENAME%/${THETA_OUTPUT//\//\\/}/g" $WORKSPACE/trig/$TRIG_CONFIG
+    sed -i "s/%SYSTEMATICS_CONFIG%/${SYSTEMATICS_CONFIG_WITHOUT_BB//\//\\/}/g" $WORKSPACE/trig/$TRIG_CONFIG
+    sed -i "s/%DIR%/${TRIG_VARTYPE//\//\\/}/g" $WORKSPACE/trig/$TRIG_CONFIG
+    sed -i "s/%WORK_DIR%/${WORKSPACE//\//\\/}/g" $WORKSPACE/trig/$TRIG_CONFIG
+    sed -i "s/%GENERATOR%/${GENERATOR//\//\\/}/g" $WORKSPACE/trig/$TRIG_CONFIG
+    $THETA_DIR/bin/theta $WORKSPACE/trig/$TRIG_CONFIG &
+    echo " "
+    done  
+  wait
+  echo "The work has finished"
+  
+fi    
+
+
+  #root -l -b -q ../getting_results.C+
+  echo $UTILITY_DIR
+cd $CURRENT_DIR

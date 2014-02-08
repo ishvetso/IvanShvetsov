@@ -1,0 +1,48 @@
+@include "include/%SYSTEMATICS_CONFIG%"
+
+
+hypotest = 
+{
+    type = "mcmc_quantiles";
+    name = "quant";
+    parameter = "%PARAMETER%";
+    quantiles = [0.159, 0.5, 0.841];
+    iterations = 100000;
+    burn-in = 10000;
+};
+
+
+main = 
+{
+    data_source = 
+    {
+        type = "histo_source";
+        
+        NN_ttbar_NN_wjets = 
+        {
+            type= "root_histogram";
+            filename ="%INPUT_DIR%/histograms.root";
+            histoname = "data";
+            zerobin_fillfactor = 0.00001;
+        };
+        
+        name = "source";
+    };
+    
+    model = "@Systematics";
+    producers = ("@hypotest");
+    n-events = 10;
+    
+    output_database = 
+    {
+        type = "rootfile_database";
+        filename = "%OUTPUT_DIR%/%OUTPUT_FILENAME%";
+        products_data = "*";
+    };
+};
+
+
+options = 
+{
+    plugin_files = ("$THETA_DIR/lib/root.so", "$THETA_DIR/lib/core-plugins.so" );
+};

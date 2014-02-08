@@ -1,0 +1,285 @@
+@include "../include/systematics_include_wjets_splitted_without_bb.cfg"
+
+
+Systematics_changed = 
+{
+    NN_ttbar_NN_wjets = 
+    {
+        DY = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaDY"); };
+            histogram = 
+            {
+                type = "interpolating_histo";
+                parameters = ("Tag", "Mistag","pile_up","JEC","JER","METUncl");
+                nominal-histogram = "@DY";
+                Tag-plus-histogram = "@DY_TagUp";
+                Tag-minus-histogram = "@DY_TagDown";
+                Mistag-plus-histogram = "@DY_MistagUp";
+                Mistag-minus-histogram = "@DY_MistagDown";
+                pile_up-plus-histogram = "@DY_pile_upUp";
+                pile_up-minus-histogram = "@DY_pile_upDown";
+                JEC-plus-histogram = "@DY_JECUp";
+                JEC-minus-histogram = "@DY_JECDown";
+                JER-plus-histogram = "@DY_JERUp";
+                JER-minus-histogram = "@DY_JERDown";
+                METUncl-plus-histogram = "@DY_METUnclUp";
+                METUncl-minus-histogram = "@DY_METUnclDown";
+            };
+        };
+        
+        
+        Dibozon = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaDiboson"); };
+            histogram = 
+            {
+                type = "interpolating_histo";
+                parameters = ("Tag", "Mistag","pile_up","JEC","JER","METUncl");
+                nominal-histogram = "@Dibozon";
+                Tag-plus-histogram = "@Dibozon_TagUp";
+                Tag-minus-histogram = "@Dibozon_TagDown";
+                Mistag-plus-histogram = "@Dibozon_MistagUp";
+                Mistag-minus-histogram = "@Dibozon_MistagDown";
+                pile_up-plus-histogram = "@Dibozon_pile_upUp";
+                pile_up-minus-histogram = "@Dibozon_pile_upDown";
+                JEC-plus-histogram = "@Dibozon_JECUp";
+                JEC-minus-histogram = "@Dibozon_JECDown";
+                JER-plus-histogram = "@Dibozon_JERUp";
+                JER-minus-histogram = "@Dibozon_JERDown";
+                METUncl-plus-histogram = "@Dibozon_METUnclUp";
+                METUncl-minus-histogram = "@Dibozon_METUnclDown";
+            };
+        };
+        
+        
+        S_ch_Single_Top = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigma_s_ch"); };
+            histogram = 
+            {
+                type = "interpolating_histo";
+                parameters = ("Tag", "Mistag","pile_up","JEC","JER","METUncl");
+                nominal-histogram = "@s-ch";
+                Tag-plus-histogram = "@s-ch_TagUp";
+                Tag-minus-histogram = "@s-ch_TagDown";
+                Mistag-plus-histogram = "@s-ch_MistagUp";
+                Mistag-minus-histogram = "@s-ch_MistagDown";
+                pile_up-plus-histogram = "@s-ch_pile_upUp";
+                pile_up-minus-histogram = "@s-ch_pile_upDown";
+                JEC-plus-histogram = "@s-ch_JECUp";
+                JEC-minus-histogram = "@s-ch_JECDown";
+                JER-plus-histogram = "@s-ch_JERUp";
+                JER-minus-histogram = "@s-ch_JERDown";
+                METUncl-plus-histogram = "@s-ch_METUnclUp";
+                METUncl-minus-histogram = "@s-ch_METUnclDown";
+            };
+        };
+        
+        
+        T_ch_Single_Top = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigma_t_ch"); };
+            histogram = 
+            {
+                type = "interpolating_histo";
+                parameters = ("Tag", "Mistag","pile_up","JEC","JER","METUncl");
+                nominal-histogram = "@t-ch";
+                Tag-plus-histogram = "@t-ch_TagUp";
+                Tag-minus-histogram = "@t-ch_TagDown";
+                Mistag-plus-histogram = "@t-ch_MistagUp";
+                Mistag-minus-histogram = "@t-ch_MistagDown";
+                pile_up-plus-histogram = "@t-ch_pile_upUp";
+                pile_up-minus-histogram = "@t-ch_pile_upDown";
+                JEC-plus-histogram = "@t-ch_JECUp";
+                JEC-minus-histogram = "@t-ch_JECDown";
+                JER-plus-histogram = "@t-ch_JERUp";
+                JER-minus-histogram = "@t-ch_JERDown";
+                METUncl-plus-histogram = "@t-ch_METUnclUp";
+                METUncl-minus-histogram = "@t-ch_METUnclDown";
+            };
+        };
+        
+        
+        TW_ch_Single_Top = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigma_tw_ch"); };
+            histogram = 
+            {
+                type = "interpolating_histo";
+                parameters = ("Tag", "Mistag","pile_up","JEC","JER","METUncl");
+                nominal-histogram = "@tw-ch";
+                Tag-plus-histogram = "@tw-ch_TagUp";
+                Tag-minus-histogram = "@tw-ch_TagDown";
+                Mistag-plus-histogram = "@tw-ch_MistagUp";
+                Mistag-minus-histogram = "@tw-ch_MistagDown";
+                pile_up-plus-histogram = "@tw-ch_pile_upUp";
+                pile_up-minus-histogram = "@tw-ch_pile_upDown";
+                JEC-plus-histogram = "@tw-ch_JECUp";
+                JEC-minus-histogram = "@tw-ch_JECDown";
+                JER-plus-histogram = "@tw-ch_JERUp";
+                JER-minus-histogram = "@tw-ch_JERDown";
+                METUncl-plus-histogram = "@tw-ch_METUnclUp";
+                METUncl-minus-histogram = "@tw-ch_METUnclDown";
+            };
+        };
+        
+        
+        Ttbar = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaTtbar"); };
+            histogram = 
+            {
+                type = "root_histogram";
+                filename = "%INPUT_DIR%/histograms.root";
+                histoname = "ttbar%TTBAR_MATCHING%";
+                //use_errors = true;
+                zerobin_fillfactor = 0.00001;
+            };
+        };
+        
+        
+        Wjets_WQQ = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaWjets_WQQ"); };
+            histogram = 
+            {
+                type = "root_histogram";
+                filename = "%INPUT_DIR%/histograms.root";
+                histoname = "Wjets_WQQ%WJETS_MATCHING%";
+                //use_errors = true;
+                zerobin_fillfactor = 0.00001;
+            };
+        };
+        
+        
+        Wjets_W_light = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaWjets_W_light"); };
+            histogram = 
+            {
+                type = "root_histogram";
+                filename = "%INPUT_DIR%/histograms.root";
+                histoname = "Wjets_W_light%WJETS_MATCHING%";
+                //use_errors = true;
+                zerobin_fillfactor = 0.00001;
+            };
+        };
+        
+        
+        Wjets_W_other = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaWjets_W_other"); };
+            histogram = 
+            {
+                type = "root_histogram";
+                filename = "%INPUT_DIR%/histograms.root";
+                histoname = "Wjets_W_other%WJETS_MATCHING%";
+                //use_errors = true;
+                zerobin_fillfactor = 0.00001;
+            };
+        };
+        
+        
+        Wjets_Wc = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaWjets_Wc"); };
+            histogram = 
+            {
+                type = "root_histogram";
+                filename = "%INPUT_DIR%/histograms.root";
+                histoname = "Wjets_Wc%WJETS_MATCHING%";
+                //use_errors = true;
+                zerobin_fillfactor = 0.00001;
+            };
+        };
+        
+        
+        QCD = 
+        {
+            coefficient-function = { type = "multiply"; factors = ("sigmaQCD"); };
+            histogram = 
+            {
+                type = "root_histogram";
+                filename = "%INPUT_DIR%/histograms.root";
+                histoname = "QCD";
+                //use_errors = true;
+                zerobin_fillfactor = 0.00001;
+            };
+        };
+    };
+    
+    
+    parameter-distribution = 
+    {
+        type ="product_distribution";
+        distributions =( "@sigmaDY-dist", "@Tag-dist", "@Mistag-dist","@pile_up-dist", "@JEC-dist","@JER-dist","@METUncl-dist", "@sigmaDiboson-dist", "@sigma_s_ch-dist", "@sigma_t_ch-dist", "@sigma_tw_ch-dist", "@sigmaTtbar-dist", "@sigmaWjets_WQQ-dist","@sigmaWjets_W_light-dist", "@sigmaWjets_W_other-dist", "@sigmaWjets_Wc-dist", "@sigmaQCD-dist");
+    };
+    
+    
+    //bb_uncertainties = true;
+};
+
+par-dist = 
+{
+    type = "delta_distribution";
+    sigmaQCD = 1.0;
+    sigmaDY = 1.0;
+    sigmaDiboson = 1.0;
+    sigma_s_ch = 1.0;
+    sigma_t_ch = 1.0;
+    sigma_tw_ch = 1.0;
+    sigmaTtbar = 1.0;
+    sigmaWjets_WQQ = 1.0;
+    sigmaWjets_W_light = 1.0;
+    sigmaWjets_W_other = 1.0;
+    sigmaWjets_Wc = 1.0;
+    trig = 1.0;
+    Tag = 0.0;
+    Mistag = 0.0;
+    pile_up = 0.0;
+    JEC = 0.0;
+    JER = 0.0;
+    METUncl = 0.0;
+};
+
+
+hypotest = 
+{
+    type = "mcmc_quantiles";
+    name = "quant";
+    parameter ="sigma_t_ch";
+    quantiles = [ 0.5 ];
+    iterations = 100000;
+};
+
+main = 
+{
+    data_source = 
+    {
+        type = "model_source";
+        name = "source";
+        model = "@Systematics_changed";
+        dice_poisson = false; // optional; default is true
+        dice_template_uncertainties = false; // optional; default is true
+        override-parameter-distribution = "@par-dist"; // optional
+    };
+    
+    model = "@Systematics";
+    producers = ("@hypotest");
+    n-events = 10;
+    
+    output_database = 
+    {
+        type = "rootfile_database";
+        filename = "%OUTPUT_DIR%/%OUTPUT_FILENAME%";
+        products_data = "*";
+    };
+};
+
+options = 
+{
+    plugin_files = ("$THETA_DIR/lib/root.so", "$THETA_DIR/lib/core-plugins.so" );
+};
+
+

@@ -1,0 +1,1367 @@
+observables = 
+	{
+	   	NN_ttbar_NN_wjets = 
+		{
+			range = (0., 100.0);
+	       		nbins = 100;
+	   	};
+
+		
+	};
+ 
+	DY = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan.root";
+	   	histoname = "Drell-Yan";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_TagUp.root";
+	   	histoname = "Drell-Yan_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_TagDown.root";
+	   	histoname = "Drell-Yan_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	DY_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_MistagUp.root";
+	   	histoname = "Drell-Yan_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_MistagDown.root";
+	   	histoname = "Drell-Yan_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	DY_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_pile_upUp.root";
+	   	histoname = "Drell-Yan_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_pile_upDown.root";
+	   	histoname = "Drell-Yan_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_JECUp.root";
+	   	histoname = "Drell-Yan_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_JECDown.root";
+	   	histoname = "Drell-Yan_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	DY_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_JERUp.root";
+	   	histoname = "Drell-Yan_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_JERDown.root";
+	   	histoname = "Drell-Yan_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_METUnclUp.root";
+	   	histoname = "Drell-Yan_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	DY_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Drell-Yan_METUnclDown.root";
+	   	histoname = "Drell-Yan_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};	
+
+
+
+
+	
+	Dibozon = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson.root";
+	   	histoname = "Diboson";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_TagUp.root";
+	   	histoname = "Diboson_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_TagDown.root";
+	   	histoname = "Diboson_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	Dibozon_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_MistagUp.root";
+	   	histoname = "Diboson_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_MistagDown.root";
+	   	histoname = "Diboson_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	Dibozon_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_pile_upUp.root";
+	   	histoname = "Diboson_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_pile_upDown.root";
+	   	histoname = "Diboson_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_JECUp.root";
+	   	histoname = "Diboson_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_JECDown.root";
+	   	histoname = "Diboson_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	Dibozon_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_JERUp.root";
+	   	histoname = "Diboson_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_JERDown.root";
+	   	histoname = "Diboson_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_METUnclUp.root";
+	   	histoname = "Diboson_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	Dibozon_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/Diboson_METUnclDown.root";
+	   	histoname = "Diboson_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+
+	s-ch = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch.root";
+	   	histoname = "s-ch";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_TagUp.root";
+	   	histoname = "s-ch_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_TagDown.root";
+	   	histoname = "s-ch_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	s-ch_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_MistagUp.root";
+	   	histoname = "s-ch_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_MistagDown.root";
+	   	histoname = "s-ch_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	s-ch_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_pile_upUp.root";
+	   	histoname = "s-ch_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_pile_upDown.root";
+	   	histoname = "s-ch_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_JECUp.root";
+	   	histoname = "s-ch_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_JECDown.root";
+	   	histoname = "s-ch_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	s-ch_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_JERUp.root";
+	   	histoname = "s-ch_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_JERDown.root";
+	   	histoname = "s-ch_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_METUnclUp.root";
+	   	histoname = "s-ch_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	s-ch_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/s-ch_METUnclDown.root";
+	   	histoname = "s-ch_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	t-ch = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch.root";
+	   	histoname = "t-ch";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_TagUp.root";
+	   	histoname = "t-ch_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_TagDown.root";
+	   	histoname = "t-ch_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	t-ch_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_MistagUp.root";
+	   	histoname = "t-ch_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_MistagDown.root";
+	   	histoname = "t-ch_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	t-ch_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_pile_upUp.root";
+	   	histoname = "t-ch_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_pile_upDown.root";
+	   	histoname = "t-ch_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_JECUp.root";
+	   	histoname = "t-ch_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_JECDown.root";
+	   	histoname = "t-ch_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	t-ch_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_JERUp.root";
+	   	histoname = "t-ch_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_JERDown.root";
+	   	histoname = "t-ch_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_METUnclUp.root";
+	   	histoname = "t-ch_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	t-ch_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/t-ch_METUnclDown.root";
+	   	histoname = "t-ch_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	
+	tw-ch = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch.root";
+	   	histoname = "tW-ch";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_TagUp.root";
+	   	histoname = "tW-ch_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_TagDown.root";
+	   	histoname = "tW-ch_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	tw-ch_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_MistagUp.root";
+	   	histoname = "tW-ch_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_MistagDown.root";
+	   	histoname = "tW-ch_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	tw-ch_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_pile_upUp.root";
+	   	histoname = "tW-ch_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_pile_upDown.root";
+	   	histoname = "tW-ch_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_JECUp.root";
+	   	histoname = "tW-ch_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_JECDown.root";
+	   	histoname = "tW-ch_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	tw-ch_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_JERUp.root";
+	   	histoname = "tW-ch_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_JERDown.root";
+	   	histoname = "tW-ch_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_METUnclUp.root";
+	   	histoname = "tW-ch_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	tw-ch_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/tW-ch_METUnclDown.root";
+	   	histoname = "tW-ch_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+
+	ttbar = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar.root";
+	   	histoname = "ttbar";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_TagUp.root";
+	   	histoname = "ttbar_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_TagDown.root";
+	   	histoname = "ttbar_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	ttbar_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_MistagUp.root";
+	   	histoname = "ttbar_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_MistagDown.root";
+	   	histoname = "ttbar_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	ttbar_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_pile_upUp.root";
+	   	histoname = "ttbar_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_pile_upDown.root";
+	   	histoname = "ttbar_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_JECUp.root";
+	   	histoname = "ttbar_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_JECDown.root";
+	   	histoname = "ttbar_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	ttbar_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_JERUp.root";
+	   	histoname = "ttbar_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_JERDown.root";
+	   	histoname = "ttbar_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_METUnclUp.root";
+	   	histoname = "ttbar_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	ttbar_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/ttbar_METUnclDown.root";
+	   	histoname = "ttbar_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+	wjets_WQQ = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ.root";
+	   	histoname = "Wjets_WQQ";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_TagUp.root";
+	   	histoname = "Wjets_WQQ_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_TagDown.root";
+	   	histoname = "Wjets_WQQ_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	wjets_WQQ_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_MistagUp.root";
+	   	histoname = "Wjets_WQQ_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_MistagDown.root";
+	   	histoname = "Wjets_WQQ_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	wjets_WQQ_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_pile_upUp.root";
+	   	histoname = "Wjets_WQQ_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_pile_upDown.root";
+	   	histoname = "Wjets_WQQ_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_JECUp.root";
+	   	histoname = "Wjets_WQQ_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_JECDown.root";
+	   	histoname = "Wjets_WQQ_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	wjets_WQQ_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_JERUp.root";
+	   	histoname = "Wjets_WQQ_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_JERDown.root";
+	   	histoname = "Wjets_WQQ_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_METUnclUp.root";
+	   	histoname = "Wjets_WQQ_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_WQQ_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_WQQ_METUnclDown.root";
+	   	histoname = "Wjets_WQQ_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+		wjets_W_light = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light.root";
+	   	histoname = "Wjets_W_light";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_TagUp.root";
+	   	histoname = "Wjets_W_light_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_TagDown.root";
+	   	histoname = "Wjets_W_light_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	wjets_W_light_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_MistagUp.root";
+	   	histoname = "Wjets_W_light_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_MistagDown.root";
+	   	histoname = "Wjets_W_light_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	wjets_W_light_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_pile_upUp.root";
+	   	histoname = "Wjets_W_light_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_pile_upDown.root";
+	   	histoname = "Wjets_W_light_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_JECUp.root";
+	   	histoname = "Wjets_W_light_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_JECDown.root";
+	   	histoname = "Wjets_W_light_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	wjets_W_light_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_JERUp.root";
+	   	histoname = "Wjets_W_light_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_JERDown.root";
+	   	histoname = "Wjets_W_light_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_METUnclUp.root";
+	   	histoname = "Wjets_W_light_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_light_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_light_METUnclDown.root";
+	   	histoname = "Wjets_W_light_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	wjets_W_other = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other.root";
+	   	histoname = "Wjets_W_other";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_TagUp.root";
+	   	histoname = "Wjets_W_other_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_TagDown.root";
+	   	histoname = "Wjets_W_other_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	wjets_W_other_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_MistagUp.root";
+	   	histoname = "Wjets_W_other_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_MistagDown.root";
+	   	histoname = "Wjets_W_other_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	wjets_W_other_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_pile_upUp.root";
+	   	histoname = "Wjets_W_other_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_pile_upDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_pile_upDown.root";
+	   	histoname = "Wjets_W_other_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_JECUp.root";
+	   	histoname = "Wjets_W_other_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_JECDown.root";
+	   	histoname = "Wjets_W_other_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	wjets_W_other_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_JERUp.root";
+	   	histoname = "Wjets_W_other_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_JERDown.root";
+	   	histoname = "Wjets_W_other_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_METUnclUp.root";
+	   	histoname = "Wjets_W_other_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_W_other_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_W_other_METUnclDown.root";
+	   	histoname = "Wjets_W_other_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	wjets_Wc = 
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc.root";
+	   	histoname = "Wjets_Wc";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_TagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_TagUp.root";
+	   	histoname = "Wjets_Wc_TagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_TagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_TagDown.root";
+	   	histoname = "Wjets_Wc_TagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	
+
+	wjets_Wc_MistagUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_MistagUp.root";
+	   	histoname = "Wjets_Wc_MistagUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_MistagDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_MistagDown.root";
+	   	histoname = "Wjets_Wc_MistagDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+
+	wjets_Wc_pile_upUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_pile_upUp.root";
+	   	histoname = "Wjets_Wc_pile_upUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_pile_upDown = 
+
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_pile_upDown.root";
+	   	histoname = "Wjets_Wc_pile_upDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_JECUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_JECUp.root";
+	   	histoname = "Wjets_Wc_JECUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_JECDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_JECDown.root";
+	   	histoname = "Wjets_Wc_JECDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+	
+
+	wjets_Wc_JERUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_JERUp.root";
+	   	histoname = "Wjets_Wc_JERUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_JERDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_JERDown.root";
+	   	histoname = "Wjets_Wc_JERDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_METUnclUp = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_METUnclUp.root";
+	   	histoname = "Wjets_Wc_METUnclUp";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};
+
+	wjets_Wc_METUnclDown = 
+	
+	{
+	   	type = "root_histogram";
+	   	filename = "/afs/cern.ch/work/i/ishvetso/theta_testing2/NN_ttbar_NNwjets_plus_zerotag/samples/1dim_hists/wjets_splitted/Wjets_Wc_METUnclDown.root";
+	   	histoname = "Wjets_Wc_METUnclDown";
+		//use_errors = true;
+	   	zerobin_fillfactor = 0.00001;
+	};

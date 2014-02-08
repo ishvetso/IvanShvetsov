@@ -1,0 +1,72 @@
+This a brief instruction to unmarginalized systematics when setting limits. Note that this is an example only.
+
+Following steps are to be done:
+0. Create the file with histograms.The file should be placed in NN_ttbar_NN_Wjets. The name of file, range, nbins should correspond to the configuration-templates (templates/)
+1. Study the effect of each source of unmarginalized systematics.Currently following sources are to be included:
+* matching 
+* scale
+* PDF
+* signal generator
+* triggers
+
+This can be done with script xsec. Usage:
+./xsec -m $MAKE_TUPLES_DIR -g $GEN
+$GEN = pw,ch
+e.g. $MAKE_TUPLES_DIR = /afs/cern.ch/work/i/ishvetso/samples_9_01_2014/makeTuples/
+(however, currently the script shouldn't depend on $MAKE_TUPLES_DIR, but I'm just putting it as it is to be sure )
+This should create the configurations you need.
+
+*PLEASE NOTE!!!* Whenever you want to do any modifications of the model, edit templates in directory templates/ (The main part of configurations is in templates/include/)
+
+2. Then get the results:
+g++ -o getting_results getting_results.C --std=c++11 `root-config --cflags --libs` -O2 -I./
+./getting_results -m $DIR -g $GEN
+$DIR - path to directory results/
+After that you should get text file stat_treatment.txt, written for TEX.
+
+3. Combine the results into the covariance matrix.
+The information from the previous steps should be put in covariance_matrix.cpp
+
+I tried to wrote the code understandable and hope you won't have problems.
+
+This should be done with :
+root -l covariance_matrix.cpp+
+
+This is what shoul get as an output (I wrote it for AnomWtb)
+
+correlation coefficient   0.879385
+sigma LV  0.0445473
+sigma RV(LT)  0.159421
+
+4. Now are ready to add the information to MCMC output. This means that random vector distributed Gaussian to the covariance matrix you got (with mean at point (0., 0.))
+
+An example of this is in the code anom_draw.cpp
+
+The main line you should edit is:
+
+g.Gaussian2D( 0.0445473, 0.159421, 0.879385, X,  Y);
+if ((RV+Y)>0.) hist -> Fill(RV+Y, LV+X,weight);
+else hist -> Fill(-RV-Y, LV+X,weight); 
+
+Documentation is here:
+http://root.cern.ch/root/html/ROOT__Math__Random_-p1GSLRngMT_.html#ROOT__Math__Random_-p1GSLRngMT_:Gaussian2D
+
+At this step you should get your posterior.
+
+5. Important general notation:
+
+If parameters you are investigating are *not* sensitive to the sign of the parameter, you should use positive priors.
+This is when adding random vector at the stage 4., the negative tail is reflected:
+else hist -> Fill(-RV-Y, LV+X,weight); 
+
+From my current understanding this concerns (LV,RV), (LV,LT) and FCNC analysis. (LV,RT) should be sensitive to the sign of the parameter (?!)
+
+6. Single limits.
+The idea is to fix one parameter to the delta-function at the SM-value (prior). Then to study the effects of each of unmarginalized systematics. For this case, you to add all uncertainties in quadrature, and after that you should add add random number to each point of your 1D posterior, distributed Gaussian with mean=0.0 and the width as total uncertainty.
+
+The example is in directory Single_limit_RV/
+You should study the effect of each uncertainty by the same steps as before.
+
+Then you can draw it : example is rv_draw.cpp
+
+root -l rv_draw.cpp+
