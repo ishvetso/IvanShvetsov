@@ -302,7 +302,7 @@ void hist_creater::CreateHists()
 			string PrincipalFileName = ((it -> second).at(j)).substr(0,pos);
 			
 			//get the information of the train set
-			TFile EventList("eventID_full.root", "OPEN");
+			TFile EventList("/afs/cern.ch/work/i/ishvetso/THETA/NN_ttbar_NN_wjets/hist_creation/eventID_full.root", "OPEN");
 			if (EventList.Get(PrincipalFileName.c_str()) != NULL) {
 			  
 			THROW_TS = true;  
