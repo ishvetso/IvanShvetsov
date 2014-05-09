@@ -1,0 +1,3 @@
+[submodule "CMSSW_7_0_0_pre12/src/PhysicsTools/FWLite/bin/JetSubstructure.cc"]
+	path = CMSSW_7_0_0_pre12/src/PhysicsTools/FWLite/bin/JetSubstructure.cc
+	url = https://github.com/ishvetso/IvanShvetsov.git
