@@ -1,20 +1,38 @@
 #include "TFile.h"
 #include "TTree.h"
 #include "TChain.h"
+#include "TCanvas.h"
+#include "TLegend.h"
+#include "TLine.h"
+#include "TH1F.h"
+#include "TPad.h"
+#include <TStyle.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include "Variable.hpp"
+
+using namespace std;
 
 class ShapePlotter
 {
-    vector <TFile> File;
-    TChain *chain;
-    vector <string> VarNames;
-    vector <Float_t> Vars;
+    vector <TFile> Files;
+    vector <Variable> Variables;
+    vector <TH1F*> hists;
+    vector <string> FileNames;
+    string title;
 
+ 
 public:
-  ShapePlotter(vector <string> FileNames_);
-  void SetVarNames(vector <string> VarNames_);
+  Float_t xmin, xmax;
+  Int_t Nbins;
+  ShapePlotter();
+  void AddVariable(string VarName_, string TreeName_, Color_t color_);
+  void SetTitle(string title_);
+  void ClearVariables();
+  void SetInputFiles(string inputFile);
+  void ClearInputFiles();
   void Draw();
 
 };  
+

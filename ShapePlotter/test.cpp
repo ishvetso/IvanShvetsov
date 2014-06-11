@@ -2,11 +2,22 @@
 
 void test()
 {
-  vector <string> Names;
-  Names.push_back("/storage/a/ishvetso/CMSSW_6_2_8/src/output.root");
-  vector <string> VarNames;
-  VarNames.push_back("mass_GENjet");
-  ShapePlotter Plotter(Names);
-  Plotter.SetVarNames(VarNames);
+  
+  string prefix = "/storage/a/ishvetso/JetSubstructureStudies/RSGraviton_JMET_samples/";
+  
+  
+  ShapePlotter Plotter;
+  Plotter.AddVariable("m", "pf", kRed);
+  Plotter.AddVariable("mraw", "pf", kGreen);
+  Plotter.SetTitle("WW AK8");
+  Plotter.xmin = 0.;
+  Plotter.xmax = 200.;
+  Plotter.Nbins = 20;
+  Plotter.SetInputFiles(prefix + "WWtree_AK8.root");
   Plotter.Draw();
+  Plotter.ClearVariables();
+  Plotter.AddVariable("mtrim", "pf", kRed);
+  Plotter.AddVariable("mtrimsafe", "pf", kGreen);
+  Plotter.Draw();
+  
 }
