@@ -34,10 +34,10 @@ void ShapePlotter::SetTitle(string title_)
 {
   title = title_;
 }
-void ShapePlotter::Draw()
+void ShapePlotter::Draw(string outprefix)
 {
   gStyle->SetOptStat(0);
-  TCanvas *c1=  new TCanvas("c1","canvas",1200,900);
+  TCanvas *c1=  new TCanvas("c1","canvas",1500,900);
   
   TPad *pad1 = new TPad("pad1","This is pad1",0.0,0.38,1.0,0.98);
   TPad *pad2 = new TPad("pad2","This is pad2",0.0,0.02,1.0,0.39);
@@ -64,8 +64,9 @@ void ShapePlotter::Draw()
     vector <float>* tmp = new std::vector<float>();
     tmp -> clear();
     chain -> SetBranchAddress(Variables.at(iVar).VarName.c_str(), &tmp);
-    h_tmp = new TH1F(("temp" + Variables.at(iVar).VarName).c_str(), ("temp" + Variables.at(iVar).VarName).c_str(), Nbins, xmin, xmax);
+    h_tmp = new TH1F(("temp" + Variables.at(iVar).VarName + title).c_str(), ("temp" + Variables.at(iVar).VarName + title).c_str(), Nbins, xmin, xmax);
     h_tmp -> SetTitle(title.c_str());
+    
     for (unsigned int iEntry =0;  iEntry < chain -> GetEntriesFast(); ++iEntry)
     {
       chain -> GetEntry(iEntry);
@@ -88,17 +89,19 @@ void ShapePlotter::Draw()
     hists.at(iVar) -> GetXaxis() -> SetTitle("GeV");
     hists.at(iVar) -> Draw("SAME HISTE1");  
     leg->AddEntry(hists.at(iVar),Variables.at(iVar).VarName.c_str(),"l");
+    h_tmp = new TH1F();
     
   } 
    
   leg -> Draw("SAME");
   if (hists.size() == 2)
   {
-    TH1F *h_dif = new TH1F(("dif" + Variables.at(0).VarName + "_vs_" + Variables.at(1).VarName).c_str(), ("dif" + Variables.at(0).VarName + "_vs_" + Variables.at(1).VarName).c_str(), Nbins, xmin, xmax);
+    TH1F *h_dif = new TH1F(("dif" + Variables.at(0).VarName + "_vs_" + Variables.at(1).VarName + title).c_str(), ("dif" + Variables.at(0).VarName + "_vs_" + Variables.at(1).VarName + title).c_str(), Nbins, xmin, xmax);
+    h_dif -> SetTitle("");
     for (int iBin = 1; iBin <= hists.at(0) -> GetNbinsX(); ++iBin)
     {
       if (hists.at(0) -> GetBinContent(iBin) ==0) cerr << "There are zero bins. Try to change binning" << endl;
-      h_dif -> SetBinContent(iBin, (( hists.at(0) -> GetBinContent(iBin)) - ( hists.at(1) -> GetBinContent(iBin)) )/ ( hists.at(0) -> GetBinContent(iBin))) ;
+      h_dif -> SetBinContent(iBin, (( hists.at(1) -> GetBinContent(iBin)) - ( hists.at(0) -> GetBinContent(iBin)) )/ ( hists.at(0) -> GetBinContent(iBin))) ;
       
     }
     h_dif -> SetLineColor(kBlack);
@@ -107,13 +110,15 @@ void ShapePlotter::Draw()
     h_dif -> GetXaxis() -> SetLabelSize(0.06);
     h_dif -> GetXaxis() -> SetTitleSize(0.06);
     h_dif -> GetXaxis() -> SetTitle("GeV");
-    h_dif -> SetTitle(("#frac{" + Variables.at(0).VarName + "-" + Variables.at(1).VarName + "}{" + Variables.at(0).VarName + "}").c_str());
+    h_dif -> SetTitleSize(0.05, "Y");
+    h_dif -> SetYTitle(("#frac{" + Variables.at(1).VarName + "-" + Variables.at(0).VarName + "}{" + Variables.at(0).VarName + "}").c_str());
     pad2 -> cd();
     h_dif -> Sumw2();
     h_dif -> Draw("HISTE1");
     TLine *line = new TLine(xmin,0., xmax,0.);
     line -> Draw("SAME");
   }
-   c1 -> Print((Variables.at(0).VarName + "_vs_" + Variables.at(1).VarName + ".png").c_str());
+   system(("mkdir -p " + outprefix).c_str());
+   c1 -> SaveAs((outprefix + Variables.at(0).VarName + "_vs_" + Variables.at(1).VarName + ".png").c_str());
    c1 -> Close();
 }

@@ -7,6 +7,7 @@
 #include "TH1F.h"
 #include "TPad.h"
 #include <TStyle.h>
+#include <TFolder.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -32,7 +33,7 @@ public:
   void ClearVariables();
   void SetInputFiles(string inputFile);
   void ClearInputFiles();
-  void Draw();
+  void Draw(string outprefix);
 
 };  
 
