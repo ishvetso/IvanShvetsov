@@ -40,13 +40,16 @@ vector <TH1F*> HistPUBinsProducer::ProduceHists()
     }
     
      vector <float>* tmp = new std::vector<float>();
+     vector <int> * imatch_tmp = new std::vector<int>();
     Int_t nPU;
     chain -> SetBranchAddress(VarName.c_str(), &tmp);
     chain -> SetBranchAddress("npu", &nPU);
+    chain -> SetBranchAddress("imatch", &imatch_tmp);
     
     int nPUBins = (nPUmax- nPUmin)/interval;
     hists.reserve(nPUBins);
     hists.resize(nPUBins);
+    
     
     for (unsigned int iHist = 0; iHist < nPUBins; iHist++)
     {
@@ -56,17 +59,25 @@ vector <TH1F*> HistPUBinsProducer::ProduceHists()
     for (unsigned int iEntry =0;  iEntry < chain -> GetEntriesFast(); ++iEntry)
     {
       chain -> GetEntry(iEntry);
+    //  cout << "---------------" << endl;
+     // cout << iEntry << endl;
       if (nPU > nPUmax || nPU < nPUmin) continue;
       int BinNumber;
       BinNumber = ((nPU - nPUmin)/interval ) + 1;
       if (nPU == nPUmax) BinNumber--;
       //cout << nPU << "  "<< BinNumber <<  endl;
-    //  cout << hists -> size() << endl;
+      
+      
+     
+      
       for (unsigned int iE =0; iE < tmp -> size(); ++iE)
       {
-	hists.at(BinNumber -1 ) -> Fill(tmp -> at(iE));
+	if (( imatch_tmp -> at(iE)) != -1 )hists.at(BinNumber -1 ) -> Fill(tmp -> at(iE));
 	
       }
+      
+      tmp -> clear();
+      imatch_tmp -> clear();
     }
      
      return hists;

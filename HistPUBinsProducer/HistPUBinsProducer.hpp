@@ -2,6 +2,7 @@
 #include "TTree.h"
 #include "TChain.h"
 #include "TCanvas.h"
+#include "TMultiGraph.h"
 #include "TLegend.h"
 #include "TLine.h"
 #include "TH1F.h"
