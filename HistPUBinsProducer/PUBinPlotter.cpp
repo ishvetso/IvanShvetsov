@@ -6,65 +6,31 @@
 #include <sstream>
 #include "TGaxis.h"
 
-
+/*
+ * Plotting PU-dependence plots for different groomers:
+ * Mean mass, RMS mass, Mean response, RMS response by fitting gaussian and calculating mean and RMS
+ * 
+ * for JME-14-001
+ * 
+ * Compile with
+ * g++ -o PUBinPlotter  PUBinPlotter.cpp --std=c++11 `root-config --cflags --libs` -O2 -I./
+ * 
+ */
 
 void PUPlotter( string tag, string treeName, vector <string> var )
 {
-  //gStyle->SetOptStat(0);
+  gStyle->SetOptStat(0);
   HistPUBinsProducer Producer;
   
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14_v2/outtree_0.root");
-/*Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_1.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_10.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_11.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_12.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_13.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_14.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_15.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_16.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_17.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_18.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_19.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_2.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_20.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_21.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_22.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_23.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_24.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_25.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_26.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_27.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_28.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_29.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_3.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_30.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_31.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_32.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_33.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_34.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_35.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_36.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_37.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_38.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_39.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_4.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_40.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_41.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_42.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_43.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_44.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_45.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_46.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_47.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_48.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_49.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_50.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_51.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_6.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_7.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_8.root");
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_9.root");*/
+  string inputFileList = "/storage/a/ishvetso/git_repository/IvanShvetsov/scripts/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14.txt";
+  std::ifstream ifs(inputFileList);
+  std::string line;
   
+  while(std::getline(ifs, line))
+  {
+    Producer.SetInputFiles("root://eoscms.cern.ch/" + line);
+  }
+
   Float_t PUmin = 25., PUmax = 55.; //PUmax not included --> [20,21), [21, 22).... [49,50)
   Int_t interval =5;
   Producer.SetPUBinsParameters(PUmin, PUmax, interval);
