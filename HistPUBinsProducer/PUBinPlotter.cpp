@@ -8,12 +8,12 @@
 
 
 
-void PUPlotter( string var1, string var2, string var3, string var4, string tag, string treeName)
+void PUPlotter( string tag, string treeName, vector <string> var )
 {
-  
+  //gStyle->SetOptStat(0);
   HistPUBinsProducer Producer;
   
-Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/caf/user/rgerosa/MiniNtuples_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_0.root");
+Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14_v2/outtree_0.root");
 /*Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_1.root");
 Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_10.root");
 Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNtuple_csa14/RSGravToWW_kMpl01_M-1000_Tune4C_13TeV-pythia8_Spring14/outtree_11.root");
@@ -78,16 +78,16 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
   vector <string> VarLabels;
   vector <Color_t> Colors;
   string TagLabel;
-  if (tag == "pf") TagLabel = "PF";
-  else if (tag == "chs") TagLabel = "PF + CHS";
-  else if (tag == "puppi") TagLabel = "PF + PUPPI"; 
+  if (treeName == "pf") TagLabel = "PF Jets";
+  else if (treeName == "chs") TagLabel = "PF + CHS Jets";
+  else if (treeName == "puppi") TagLabel = "PF + PUPPI Jets"; 
+  else cerr << "tree name is not supported " << endl;
   
   //VarNames.push_back("m");
-  VarNames.push_back(var1);
-  VarNames.push_back(var2);
-  VarNames.push_back(var3);
-  VarNames.push_back(var4);
-  
+  for (unsigned int i = 0; i< var.size(); ++i)
+  {
+    VarNames.push_back(var.at(i));
+  }
   for ( unsigned int iLabel = 0; iLabel < VarNames.size(); iLabel++)
   {
     //pruning
@@ -129,10 +129,10 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
   TMultiGraph *mg_ResponseMass = new TMultiGraph("", "");
   TMultiGraph *mg_RMSResponse = new TMultiGraph("", "");
     
-  TLegend  *leg = new TLegend(0.6,0.7,0.89,0.83);
-  //leg ->  SetFillColor(kWhite);
+  TLegend  *leg = new TLegend(0.4,0.6,0.89,0.85);
+  leg ->  SetTextSize(0.013);
   leg ->  SetFillStyle(0.);
-  
+  leg-> SetNColumns(2);
   
   for (unsigned iVar = 0; iVar < VarNames.size(); ++iVar)
   {
@@ -208,18 +208,9 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
       
       Number<< PUmin + interval*(i + 1);
       PUNumberUp[i] = Number.str();
-      
-      //TLatex *latex = new TLatex(gr->GetX()[i], gr->GetY()[i],("[" + PUNumberLow[i] + ", "  + PUNumberUp[i] + "]"  ).c_str());
-      //latex -> SetTextSize(0.03);
-      //gr->GetListOfFunctions()->Add(latex);
-      
+           
       hists.at(i) -> SetName(("[" + PUNumberLow[i] + ", "  + PUNumberUp[i] + "]" + VarNames.at(iVar) ).c_str());
       hists_response.at(i) -> SetName(("Response_[" + PUNumberLow[i] + ", "  + PUNumberUp[i] + "]" + VarNames.at(iVar) ).c_str());
-      
-     //TF1 *f1 = new TF1("mass","[0]*exp(-0.5*((x-[1])/[2])^2)",0.,200.);
-     //f1 -> SetParameters(1., hists.at(i) ->  GetMean(), hists.at(i) ->  GetRMS());
-     
-     //cout << "Mean " << f1 -> GetParameter(2) << endl;	      
       
       hists.at(i) -> Write();
       hists_response.at(i) -> Write();
@@ -286,20 +277,24 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
 
    mg_Masses -> Add(gr_masses);
    mg_Masses -> Add(gr_masses_Estimated);
+   
    mg_ResponseMass -> Add(gr_massResponse);
    mg_ResponseMass -> Add(gr_massResponse_Estimated);
+   
    mg_MassRMS -> Add(gr_massRMS);
    mg_MassRMS -> Add(gr_massRMS_Estimated);
+   
    mg_RMSResponse -> Add(gr_RMSResponse);
    mg_RMSResponse -> Add(gr_RMSResponse_Estimated);
    
-   leg->AddEntry(gr_masses,VarLabels.at(iVar).c_str(),"pl");
+   leg->AddEntry(gr_masses,(VarLabels.at(iVar) + " Fit Result" ).c_str(),"pl");
+   leg->AddEntry(gr_masses_Estimated, (VarLabels.at(iVar) + " Estimation").c_str(),"pl");
    
   }
 
   
   
-  TPaveText descriptionPave(0.12,0.8,0.3,0.9, "NDC");
+  TPaveText descriptionPave(0.12,0.75,0.3,0.85, "NDC");
   TPaveText descriptionPaveCMS(0.12,0.9,0.3,1.0, "NDC");
   descriptionPave.SetTextAlign(11);
   descriptionPave.SetFillStyle(0);  // transparent
@@ -308,6 +303,7 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
   descriptionPave.AddText("WW, Antikt jets with R = 0.8");// \\ p_{T}^{jet} > 300 GeV");
   descriptionPave.AddText("p_{T}^{jet} > 300 GeV" );
   descriptionPave.AddText(TagLabel.c_str());
+  descriptionPave.SetTextSize(0.025);
   
   descriptionPaveCMS.SetTextAlign(11);
   descriptionPaveCMS.SetFillStyle(0);  // transparent
@@ -324,25 +320,25 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
   c1->SetTicky(1);  
   
   //Mean mass
-  mg_Masses -> Draw("AP");
+  c1 -> Clear();
+   mg_Masses -> Draw("AP");
   mg_Masses -> GetXaxis() -> SetTitle("n_{PV}");
   mg_Masses -> GetYaxis() -> SetTitle(("<m_{" + tag + "}> (GeV)").c_str());
-  Float_t YMIN = 60.;
-  Float_t YMAX = 110.;
+  Float_t YMIN = 50.;
+  Float_t YMAX = 130.;
   mg_Masses -> GetYaxis() -> SetRangeUser(YMIN, YMAX);
   leg -> Draw("SAME");
   descriptionPave.Draw();
   descriptionPaveCMS.Draw();
-
-  
   c1 -> SaveAs((treeName + "/mass_vs_nPU_" + tag + ".png").c_str());
   c1 -> Clear();
+  c1 -> Modified();
   
   // Mass Response
   mg_ResponseMass -> Draw("AP");
   mg_ResponseMass -> GetXaxis() -> SetTitle("n_{PV}");
   mg_ResponseMass -> GetYaxis() -> SetTitle("<m_{Recojet}  - m_{GenJet} (GeV)>");
-  mg_ResponseMass -> GetYaxis() -> SetRangeUser(-10., 15.);
+  mg_ResponseMass -> GetYaxis() -> SetRangeUser(-20., 20.);
   leg -> Draw("SAME");
   descriptionPave.Draw();
   descriptionPaveCMS.Draw();
@@ -353,7 +349,7 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
   mg_MassRMS -> Draw("AP");
   mg_MassRMS -> GetXaxis() -> SetTitle("n_{PV}");
   mg_MassRMS -> GetYaxis() -> SetTitle(("RMS(m_{" + tag + "} ) (GeV)").c_str());
-  mg_MassRMS -> GetYaxis() -> SetRangeUser(0., 30.);
+  mg_MassRMS -> GetYaxis() -> SetRangeUser(0., 60.);
   leg -> Draw("SAME");
   descriptionPave.Draw();
   descriptionPaveCMS.Draw();
@@ -364,7 +360,7 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
   mg_RMSResponse -> Draw("AP");
   mg_RMSResponse -> GetXaxis() -> SetTitle("n_{PV}");
   mg_RMSResponse -> GetYaxis() -> SetTitle("RMS[m_{Recojet}  - m_{GenJet}]> (GeV)");
-  mg_RMSResponse -> GetYaxis() -> SetRangeUser(0., 15. );
+  mg_RMSResponse -> GetYaxis() -> SetRangeUser(0., 30. );
   leg -> Draw("SAME");
   descriptionPave.Draw();
   descriptionPaveCMS.Draw();
@@ -377,21 +373,15 @@ Producer.SetInputFiles("root://eoscms.cern.ch//eos/cms/store/user/rgerosa/MiniNt
 
 int main(int argc, char** argv)
 {
-  for (int i = 0; i < argc; ++i) {
-        //std::  << argv[i] << std::endl;
-    }
-    if (argc != 7) 
+
+    vector <string> VarNames;
+    for (unsigned int i = 3; i < argc; ++i)
     {
-      cout << "Not correct number of parameters" << endl;
-      exit(EXIT_FAILURE);
+      VarNames.push_back(argv[i]);
     }
-    std::string VAR1 = argv[1];
-    std::string VAR2 = argv[2];  
-    std::string VAR3 = argv[3];  
-    std::string VAR4 = argv[4];
-    std::string tag = argv[5];
-    std::string treeName = argv[6];  
+    std::string tag = argv[1];
+    std::string treeName = argv[2];  
    
-  PUPlotter(VAR1, VAR2, VAR3, VAR4, tag, treeName);
+    PUPlotter(tag, treeName, VarNames);
   
 }
