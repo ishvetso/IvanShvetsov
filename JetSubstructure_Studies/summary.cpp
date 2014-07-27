@@ -39,19 +39,7 @@ void summary(string inputFileList, vector <string> treeNames)
   hists_summary_Estimation.reserve(treeNames.size());
   
   vector <string> VarName;
-  VarName.push_back("m");
-  VarName.push_back("mraw");
-  VarName.push_back("mpruned_zcut_010_R_cut_050");
-  VarName.push_back("mpruned_zcut_005_R_cut_050");
-  VarName.push_back("mpruned_zcut_005_R_cut_075");
-  VarName.push_back("mpruned_zcut_010_R_cut_075");
-  VarName.push_back("mtrim_Rtrim_020_Ptfrac_005");
-  VarName.push_back("mtrim_Rtrim_010_Ptfrac_003");
-  VarName.push_back("mtrim_Rtrim_020_Ptfrac_003");
-  VarName.push_back("mtrim_Rtrim_030_Ptfrac_003");
-  VarName.push_back("msoftdrop_beta10");
-  VarName.push_back("msoftdrop_beta00");
-  VarName.push_back("msoftdrop_beta20");
+
   
   
   for (unsigned int iTree = 0; iTree < treeNames.size(); ++iTree )
@@ -60,6 +48,42 @@ void summary(string inputFileList, vector <string> treeNames)
     TChain chain_gen("gen");
     vector <TH1F*> hists;
    
+    if (  (treeNames.at(iTree) == "pf" ) ||  (treeNames.at(iTree) == "chs" ) )
+    {
+        VarName.push_back("m");
+	VarName.push_back("mraw");
+	VarName.push_back("mprunedsafe_zcut_010_R_cut_050");
+	VarName.push_back("mprunedsafe_zcut_005_R_cut_050");
+	VarName.push_back("mprunedsafe_zcut_005_R_cut_075");
+	VarName.push_back("mprunedsafe_zcut_010_R_cut_075");
+	VarName.push_back("mtrimsafe_Rtrim_020_Ptfrac_005");
+	VarName.push_back("mtrimsafe_Rtrim_010_Ptfrac_003");
+	VarName.push_back("mtrimsafe_Rtrim_020_Ptfrac_003");
+	VarName.push_back("mtrimsafe_Rtrim_030_Ptfrac_003");
+	VarName.push_back("msoftdropsafe_beta10");
+	VarName.push_back("msoftdropsafe_beta00");
+	VarName.push_back("msoftdropsafe_beta20");
+      
+    }
+    
+    else if ( treeNames.at(iTree) == "puppi"  )
+    {
+        VarName.push_back("m");
+	VarName.push_back("mraw");
+	VarName.push_back("mpruned_zcut_010_R_cut_050");
+	VarName.push_back("mpruned_zcut_005_R_cut_050");
+	VarName.push_back("mpruned_zcut_005_R_cut_075");
+	VarName.push_back("mpruned_zcut_010_R_cut_075");
+	VarName.push_back("mtrim_Rtrim_020_Ptfrac_005");
+	VarName.push_back("mtrim_Rtrim_010_Ptfrac_003");
+	VarName.push_back("mtrim_Rtrim_020_Ptfrac_003");
+	VarName.push_back("mtrim_Rtrim_030_Ptfrac_003");
+	VarName.push_back("msoftdrop_beta10");
+	VarName.push_back("msoftdrop_beta00");
+	VarName.push_back("msoftdrop_beta20");
+    }
+    
+    else cerr << "tree name is not supported" << endl;
     
     std::ifstream ifs(inputFileList);
     
@@ -76,7 +100,7 @@ void summary(string inputFileList, vector <string> treeNames)
 	chain.Add(filename.c_str());
 	chain_gen.Add(filename.c_str());
 	counter ++;
-	if (counter > 1) break;
+	//if (counter > 1) break;
 	
     }
         
@@ -104,17 +128,17 @@ void summary(string inputFileList, vector <string> treeNames)
       
       if (VarName.at(iVar) == "m") LabelsAxis.push_back("m");
       else if (VarName.at(iVar) == "mraw") LabelsAxis.push_back("m_{raw}");
-      else if (VarName.at(iVar) == "mpruned_zcut_010_R_cut_050") LabelsAxis.push_back("m_{pruned} z_{cut}=0.1 R_{cut}=0.5");
-      else if (VarName.at(iVar) == "mpruned_zcut_005_R_cut_050") LabelsAxis.push_back("m_{pruned} z_{cut}=0.05 R_{cut}=0.5");
-      else if (VarName.at(iVar) == "mpruned_zcut_005_R_cut_075") LabelsAxis.push_back("m_{pruned} z_{cut}=0.05 R_{cut}=0.75");
-      else if (VarName.at(iVar) == "mpruned_zcut_010_R_cut_075") LabelsAxis.push_back("m_{pruned} z_{cut}=0.1 R_{cut}=0.75");
-      else if (VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_005") LabelsAxis.push_back("m_{trim} R_{trim}=0.2 pT_{frac}=0.05");
-      else if (VarName.at(iVar) == "mtrim_Rtrim_010_Ptfrac_003") LabelsAxis.push_back("m_{trim} R_{trim}=0.1 pT_{frac}=0.03");
-      else if (VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_003") LabelsAxis.push_back("m_{trim} R_{trim}=0.2 pT_{frac}=0.03");
-      else if (VarName.at(iVar) == "mtrim_Rtrim_030_Ptfrac_003") LabelsAxis.push_back("m_{trim} R_{trim}=0.3 pT_{frac}=0.03");
-      else if (VarName.at(iVar) == "msoftdrop_beta10") LabelsAxis.push_back("m_{softdrop} #beta=1");
-      else if (VarName.at(iVar) == "msoftdrop_beta00") LabelsAxis.push_back("m_{softdrop} #beta=0");
-      else if (VarName.at(iVar) == "msoftdrop_beta20") LabelsAxis.push_back("m_{softdrop} #beta=2");
+      else if ((VarName.at(iVar) == "mpruned_zcut_010_R_cut_050") || (VarName.at(iVar) == "mprunedsafe_zcut_010_R_cut_050") ) LabelsAxis.push_back("m_{pruned} z_{cut}=0.1 R_{cut}=0.5");
+      else if ((VarName.at(iVar) == "mpruned_zcut_005_R_cut_050") || (VarName.at(iVar) == "mprunedsafe_zcut_005_R_cut_050")) LabelsAxis.push_back("m_{pruned} z_{cut}=0.05 R_{cut}=0.5");
+      else if ((VarName.at(iVar) == "mpruned_zcut_005_R_cut_075") || (VarName.at(iVar) == "mprunedsafe_zcut_005_R_cut_075")) LabelsAxis.push_back("m_{pruned} z_{cut}=0.05 R_{cut}=0.75");
+      else if ((VarName.at(iVar) == "mpruned_zcut_010_R_cut_075") || (VarName.at(iVar) == "mprunedsafe_zcut_010_R_cut_075")) LabelsAxis.push_back("m_{pruned} z_{cut}=0.1 R_{cut}=0.75");
+      else if ((VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_005") || (VarName.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_005")) LabelsAxis.push_back("m_{trim} R_{trim}=0.2 pT_{frac}=0.05");
+      else if ((VarName.at(iVar) == "mtrim_Rtrim_010_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_010_Ptfrac_003")) LabelsAxis.push_back("m_{trim} R_{trim}=0.1 pT_{frac}=0.03");
+      else if ((VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_003")) LabelsAxis.push_back("m_{trim} R_{trim}=0.2 pT_{frac}=0.03");
+      else if ((VarName.at(iVar) == "mtrim_Rtrim_030_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_030_Ptfrac_003")) LabelsAxis.push_back("m_{trim} R_{trim}=0.3 pT_{frac}=0.03");
+      else if ((VarName.at(iVar) == "msoftdrop_beta10") || (VarName.at(iVar) == "msoftdropsafe_beta10")) LabelsAxis.push_back("m_{softdrop} #beta=1");
+      else if ((VarName.at(iVar) == "msoftdrop_beta00") || (VarName.at(iVar) == "msoftdropsafe_beta00")) LabelsAxis.push_back("m_{softdrop} #beta=0");
+      else if ((VarName.at(iVar) == "msoftdrop_beta20") || (VarName.at(iVar) == "msoftdropsafe_beta20")) LabelsAxis.push_back("m_{softdrop} #beta=2");
       else cout << "Not supported label " << endl;	
     }
     
@@ -194,7 +218,8 @@ void summary(string inputFileList, vector <string> treeNames)
     else if (treeNames.at(iTree) == "chs") Labels.push_back("PF + CHS Jets");
     else if (treeNames.at(iTree) == "puppi") Labels.push_back("PUPPI Jets");
    
-        
+   
+    VarName.clear();
   }
   
   TCanvas *c1=  new TCanvas("c1","canvas",1000,800);
