@@ -52,6 +52,7 @@ vector <TH1F*> HistPUBinsProducer::ProduceHists(string treename)
     vector <float>* tmp = new std::vector<float>();
     vector <float>* tmp_gen = new std::vector<float>();
     vector <float>* pt = new std::vector<float>();
+    vector <float>* eta = new std::vector<float>();
     vector <int> * imatch_tmp = new std::vector<int>();
     vector <bool> * isMatchedToBoson_tmp = new std::vector<bool>();
     
@@ -59,10 +60,11 @@ vector <TH1F*> HistPUBinsProducer::ProduceHists(string treename)
     
     chain -> SetBranchAddress(VarName.c_str(), &tmp);
     chain_gen -> SetBranchAddress(VarName.c_str(), &tmp_gen); //corresponding gen info
-    chain -> SetBranchAddress("npu", &nPU);
+    chain -> SetBranchAddress("npv", &nPU);
     chain -> SetBranchAddress("imatch", &imatch_tmp);
     chain -> SetBranchAddress("is_MatchedToBoson", &isMatchedToBoson_tmp);
-    chain -> SetBranchAddress("pt", &pt);
+    chain -> SetBranchAddress("ptcorrphil", &pt);
+    chain -> SetBranchAddress("eta", &eta);
     
     int nPUBins = (nPUmax- nPUmin)/interval;
     hists.reserve(nPUBins);
@@ -88,20 +90,17 @@ vector <TH1F*> HistPUBinsProducer::ProduceHists(string treename)
     {
       chain -> GetEntry(iEntry);
       chain_gen -> GetEntry(iEntry);
-      //cout << "gen size " <<  tmp_gen -> size() << endl;
 
       if (nPU >= nPUmax || nPU < nPUmin) continue;
       int BinNumber;
       BinNumber = ((nPU - nPUmin)/interval ) + 1;
-    //  if (nPU == nPUmax) BinNumber--;
-     // cout << BinNumber << "  " << nPU << endl;
-    //  cout << isMatchedToBoson_tmp -> size() << " " << pt -> size() << " " << tmp -> size() << endl;
-      //cout << "tmp size" << tmp -> size() << endl;
-      //cout << "imatch size" << imatch_tmp-> size() << endl;
+
+      cout <<  isMatchedToBoson_tmp -> size() << " " << pt -> size() << "  " << eta -> size() << endl;
+      
       for (unsigned int iE =0; iE < tmp -> size(); ++iE)
       {
 	//cout << BinNumber -1 << endl;
-	if ((isMatchedToBoson_tmp -> at(iE)) && ((pt -> at(iE))> 300.) &&  imatch_tmp -> at(iE) != -1) 
+	if ((isMatchedToBoson_tmp -> at(iE)) && ((pt -> at(iE))> 300.)  && ((fabs((eta -> at(iE)))) < 2.5 )  && ( imatch_tmp -> at(iE) != -1)) 
 	{
 	  //cout << "imatch    "<< imatch_tmp -> at(iE) << endl;
 	  //if (imatch_tmp -> at(iE) == -1) cout << "!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
