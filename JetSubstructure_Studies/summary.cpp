@@ -59,14 +59,14 @@ void summary(vstring treeNames, string outFileName)
     {
         VarName.push_back("m");
 	VarName.push_back("mraw");
-	VarName.push_back("mprunedsafe_zcut_010_R_cut_050");
-	VarName.push_back("mprunedsafe_zcut_005_R_cut_050");
-	VarName.push_back("mprunedsafe_zcut_005_R_cut_075");
-	VarName.push_back("mprunedsafe_zcut_010_R_cut_075");
 	VarName.push_back("mtrimsafe_Rtrim_020_Ptfrac_005");
 	VarName.push_back("mtrimsafe_Rtrim_010_Ptfrac_003");
 	VarName.push_back("mtrimsafe_Rtrim_020_Ptfrac_003");
 	VarName.push_back("mtrimsafe_Rtrim_030_Ptfrac_003");
+	VarName.push_back("mprunedsafe_zcut_010_R_cut_050");
+	VarName.push_back("mprunedsafe_zcut_005_R_cut_050");
+	VarName.push_back("mprunedsafe_zcut_005_R_cut_075");
+	VarName.push_back("mprunedsafe_zcut_010_R_cut_075");
 	VarName.push_back("msoftdropsafe_beta10");
 	VarName.push_back("msoftdropsafe_beta00");
 	VarName.push_back("msoftdropsafe_beta20");
@@ -77,14 +77,14 @@ void summary(vstring treeNames, string outFileName)
     {
         VarName.push_back("m");
 	VarName.push_back("mraw");
-	VarName.push_back("mpruned_zcut_010_R_cut_050");
-	VarName.push_back("mpruned_zcut_005_R_cut_050");
-	VarName.push_back("mpruned_zcut_005_R_cut_075");
-	VarName.push_back("mpruned_zcut_010_R_cut_075");
 	VarName.push_back("mtrim_Rtrim_020_Ptfrac_005");
 	VarName.push_back("mtrim_Rtrim_010_Ptfrac_003");
 	VarName.push_back("mtrim_Rtrim_020_Ptfrac_003");
 	VarName.push_back("mtrim_Rtrim_030_Ptfrac_003");
+	VarName.push_back("mpruned_zcut_010_R_cut_050");
+	VarName.push_back("mpruned_zcut_005_R_cut_050");
+	VarName.push_back("mpruned_zcut_005_R_cut_075");
+	VarName.push_back("mpruned_zcut_010_R_cut_075");
 	VarName.push_back("msoftdrop_beta10");
 	VarName.push_back("msoftdrop_beta00");
 	VarName.push_back("msoftdrop_beta20");
@@ -99,17 +99,17 @@ void summary(vstring treeNames, string outFileName)
       {
 	if (VarName.at(iVar) == "m") LabelsAxis.push_back("m");
 	else if (VarName.at(iVar) == "mraw") LabelsAxis.push_back("m_{raw}");
-	else if ((VarName.at(iVar) == "mpruned_zcut_010_R_cut_050") || (VarName.at(iVar) == "mprunedsafe_zcut_010_R_cut_050") ) LabelsAxis.push_back("m_{pruned} z_{cut}=0.1 R_{cut}=0.5");
-	else if ((VarName.at(iVar) == "mpruned_zcut_005_R_cut_050") || (VarName.at(iVar) == "mprunedsafe_zcut_005_R_cut_050")) LabelsAxis.push_back("m_{pruned} z_{cut}=0.05 R_{cut}=0.5");
-	else if ((VarName.at(iVar) == "mpruned_zcut_005_R_cut_075") || (VarName.at(iVar) == "mprunedsafe_zcut_005_R_cut_075")) LabelsAxis.push_back("m_{pruned} z_{cut}=0.05 R_{cut}=0.75");
-	else if ((VarName.at(iVar) == "mpruned_zcut_010_R_cut_075") || (VarName.at(iVar) == "mprunedsafe_zcut_010_R_cut_075")) LabelsAxis.push_back("m_{pruned} z_{cut}=0.1 R_{cut}=0.75");
-	else if ((VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_005") || (VarName.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_005")) LabelsAxis.push_back("m_{trimmed} r_{filt}=0.2 pT_{frac}=0.05");
-	else if ((VarName.at(iVar) == "mtrim_Rtrim_010_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_010_Ptfrac_003")) LabelsAxis.push_back("m_{trimmed} r_{filt}=0.1 pT_{frac}=0.03");
-	else if ((VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_003")) LabelsAxis.push_back("m_{trimmed} r_{filt}=0.2 pT_{frac}=0.03");
-	else if ((VarName.at(iVar) == "mtrim_Rtrim_030_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_030_Ptfrac_003")) LabelsAxis.push_back("m_{trimmed} r_{filt}=0.3 pT_{frac}=0.03");
-	else if ((VarName.at(iVar) == "msoftdrop_beta10") || (VarName.at(iVar) == "msoftdropsafe_beta10")) LabelsAxis.push_back("m_{soft drop} #beta=1");
-	else if ((VarName.at(iVar) == "msoftdrop_beta00") || (VarName.at(iVar) == "msoftdropsafe_beta00")) LabelsAxis.push_back("m_{soft drop} #beta=0");
-	else if ((VarName.at(iVar) == "msoftdrop_beta20") || (VarName.at(iVar) == "msoftdropsafe_beta20")) LabelsAxis.push_back("m_{soft drop} #beta=2");
+	else if ((VarName.at(iVar) == "mpruned_zcut_010_R_cut_050") || (VarName.at(iVar) == "mprunedsafe_zcut_010_R_cut_050") ) LabelsAxis.push_back("z_{cut}=0.1 R_{cut}=0.5");
+	else if ((VarName.at(iVar) == "mpruned_zcut_005_R_cut_050") || (VarName.at(iVar) == "mprunedsafe_zcut_005_R_cut_050")) LabelsAxis.push_back("z_{cut}=0.05 R_{cut}=0.5");
+	else if ((VarName.at(iVar) == "mpruned_zcut_005_R_cut_075") || (VarName.at(iVar) == "mprunedsafe_zcut_005_R_cut_075")) LabelsAxis.push_back("z_{cut}=0.05 R_{cut}=0.75");
+	else if ((VarName.at(iVar) == "mpruned_zcut_010_R_cut_075") || (VarName.at(iVar) == "mprunedsafe_zcut_010_R_cut_075")) LabelsAxis.push_back("z_{cut}=0.1 R_{cut}=0.75");
+	else if ((VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_005") || (VarName.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_005")) LabelsAxis.push_back("r_{sub}=0.2 pT_{frac}=0.05");
+	else if ((VarName.at(iVar) == "mtrim_Rtrim_010_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_010_Ptfrac_003")) LabelsAxis.push_back("r_{sub}=0.1 pT_{frac}=0.03");
+	else if ((VarName.at(iVar) == "mtrim_Rtrim_020_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_003")) LabelsAxis.push_back("r_{sub}=0.2 pT_{frac}=0.03");
+	else if ((VarName.at(iVar) == "mtrim_Rtrim_030_Ptfrac_003") || (VarName.at(iVar) == "mtrimsafe_Rtrim_030_Ptfrac_003")) LabelsAxis.push_back("r_{sub}=0.3 pT_{frac}=0.03");
+	else if ((VarName.at(iVar) == "msoftdrop_beta10") || (VarName.at(iVar) == "msoftdropsafe_beta10")) LabelsAxis.push_back("#beta=1");
+	else if ((VarName.at(iVar) == "msoftdrop_beta00") || (VarName.at(iVar) == "msoftdropsafe_beta00")) LabelsAxis.push_back("#beta=0");
+	else if ((VarName.at(iVar) == "msoftdrop_beta20") || (VarName.at(iVar) == "msoftdropsafe_beta20")) LabelsAxis.push_back("#beta=2");
 	else cout << "Not supported label " << endl;	
       }
     }
@@ -233,24 +233,24 @@ void summary(vstring treeNames, string outFileName)
   descriptionPave.SetFillStyle(0);  // transparent
   descriptionPave.SetBorderSize(0);
   descriptionPave.SetTextSize(0.035);
-  descriptionPave.AddText("RSGravition #rightarrow WW, Anti-kT (R=0.8) ");
+  descriptionPave.AddText("RS Graviton #rightarrow WW, Anti-kT (R=0.8) ");
   descriptionPave.AddText("<n_{PU}>=40");
   descriptionPave.AddText("p_{T} > 300 GeV");
   descriptionPave.AddText("|#eta| < 2.5");
   
-  TPaveText descriptionPavePruned(0.35,0.6,0.45,0.7, "NDC");
+  TPaveText descriptionPavePruned(0.58,0.6,0.68,0.7, "NDC");
   descriptionPavePruned.SetTextAlign(11);
   descriptionPavePruned.SetFillStyle(0);  // transparent
   descriptionPavePruned.SetBorderSize(0);
   descriptionPavePruned.SetTextSize(0.035);
-  descriptionPavePruned.AddText("Pruned");
+  descriptionPavePruned.AddText("Pruning");
   
-  TPaveText descriptionPaveTrimmed(0.58,0.6,0.68,0.7, "NDC");
+  TPaveText descriptionPaveTrimmed(0.35,0.6,0.45,0.7, "NDC");
   descriptionPaveTrimmed.SetTextAlign(11);
   descriptionPaveTrimmed.SetFillStyle(0);  // transparent
   descriptionPaveTrimmed.SetBorderSize(0);
   descriptionPaveTrimmed.SetTextSize(0.035);
-  descriptionPaveTrimmed.AddText("Trimmed");
+  descriptionPaveTrimmed.AddText("Trimming");
   
   TPaveText descriptionPaveSoftDrop(0.78,0.6,0.88,0.7, "NDC");
   descriptionPaveSoftDrop.SetTextAlign(11);
@@ -296,7 +296,7 @@ void summary(vstring treeNames, string outFileName)
   
   
 
-  leg2->AddEntry(gr1,"#sigma","p");
+  leg2->AddEntry(gr1,"fitted #sigma","p");
   leg2->AddEntry(gr2,"RMS","p");
 
   

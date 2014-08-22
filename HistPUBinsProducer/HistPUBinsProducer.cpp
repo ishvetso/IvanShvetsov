@@ -95,29 +95,29 @@ vector <TH1F*> HistPUBinsProducer::ProduceHists(string treename)
       int BinNumber;
       BinNumber = ((nPU - nPUmin)/interval ) + 1;
 
-      cout <<  isMatchedToBoson_tmp -> size() << " " << pt -> size() << "  " << eta -> size() << endl;
-      
-      for (unsigned int iE =0; iE < tmp -> size(); ++iE)
-      {
+      if ((pt -> size()) == 0 ) continue;
+          
+    //  for (unsigned int iE =0; iE < tmp -> size(); ++iE)
+     // {
 	//cout << BinNumber -1 << endl;
-	if ((isMatchedToBoson_tmp -> at(iE)) && ((pt -> at(iE))> 300.)  && ((fabs((eta -> at(iE)))) < 2.5 )  && ( imatch_tmp -> at(iE) != -1)) 
+	if ((isMatchedToBoson_tmp -> at(0)) && ((pt -> at(0))> 300.)  && ((fabs((eta -> at(0)))) < 2.5 )  && ( imatch_tmp -> at(0) != -1)) 
 	{
 	  //cout << "imatch    "<< imatch_tmp -> at(iE) << endl;
 	  //if (imatch_tmp -> at(iE) == -1) cout << "!!!!!!!!!!!!!!!!!!!!!!!!!" << endl;
-	  hists.at(BinNumber -1 ) -> Fill(tmp -> at(iE));
-	  hists_response.at(BinNumber -1 ) -> Fill(((tmp -> at(iE)) - (tmp_gen -> at(imatch_tmp -> at(iE)))) );
-	  
+	  hists.at(BinNumber -1 ) -> Fill(tmp -> at(0));
+	  hists_response.at(BinNumber -1 ) -> Fill(((tmp -> at(0)) - (tmp_gen -> at(imatch_tmp -> at(0)))) );
+	
 	  
 	}
-	//cout << isMatchedToBoson_tmp -> at(iE) << endl;
-	//cout << "BinNumber = " << BinNumber <<  "  nPU = " <<  nPU << endl;
 		
-      }
+     // }
       
       tmp -> clear();
       isMatchedToBoson_tmp -> clear();
       tmp_gen -> clear();
       pt -> clear();
+      imatch_tmp -> clear();
+      eta -> clear();
     }
      
      return hists;

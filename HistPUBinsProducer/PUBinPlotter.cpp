@@ -69,17 +69,17 @@ void PUPlotter( string tag, string treeName, vector <string> var )
     else if ((VarNames.at(iLabel) == "mpruned_zcut_010_R_cut_075") || (VarNames.at(iLabel) == "mprunedsafe_zcut_010_R_cut_075") ) VarLabels.push_back("z_{cut} = 0.1, r_{cut} = 0.75");
     
     //trimming
-    else if ((VarNames.at(iLabel) == "mtrim_Rtrim_020_Ptfrac_005" ) || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_020_Ptfrac_005" )  ) VarLabels.push_back("r_{filt} = 0.2, pT_{frac} = 0.05");
-    else if ( (VarNames.at(iLabel) == "mtrim_Rtrim_010_Ptfrac_003" ) || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_010_Ptfrac_003" )) VarLabels.push_back("r_{filt} = 0.1, pT_{frac} = 0.03");
-    else if ( (VarNames.at(iLabel) == "mtrim_Rtrim_020_Ptfrac_003") || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_020_Ptfrac_003")) VarLabels.push_back("r_{filt} = 0.2, pT_{frac} = 0.03");
-    else if ((VarNames.at(iLabel) == "mtrim_Rtrim_030_Ptfrac_003") || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_030_Ptfrac_003") ) VarLabels.push_back("r_{filt} = 0.3, pT_{frac} = 0.03");
+    else if ((VarNames.at(iLabel) == "mtrim_Rtrim_020_Ptfrac_005" ) || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_020_Ptfrac_005" )  ) VarLabels.push_back("r_{sub} = 0.2, pT_{frac} = 0.05");
+    else if ( (VarNames.at(iLabel) == "mtrim_Rtrim_010_Ptfrac_003" ) || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_010_Ptfrac_003" )) VarLabels.push_back("r_{sub} = 0.1, pT_{frac} = 0.03");
+    else if ( (VarNames.at(iLabel) == "mtrim_Rtrim_020_Ptfrac_003") || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_020_Ptfrac_003")) VarLabels.push_back("r_{sub} = 0.2, pT_{frac} = 0.03");
+    else if ((VarNames.at(iLabel) == "mtrim_Rtrim_030_Ptfrac_003") || (VarNames.at(iLabel) == "mtrimsafe_Rtrim_030_Ptfrac_003") ) VarLabels.push_back("r_{sub} = 0.3, pT_{frac} = 0.03");
     
     //softdrop
     else if ((VarNames.at(iLabel) == "msoftdrop_beta20" ) || (VarNames.at(iLabel) == "msoftdropsafe_beta20" )  ) VarLabels.push_back("#beta = 2");
     else if ((VarNames.at(iLabel) == "msoftdrop_beta00" ) || (VarNames.at(iLabel) == "msoftdropsafe_beta00" )  ) VarLabels.push_back("#beta = 0");
     else if ((VarNames.at(iLabel) == "msoftdrop_beta10" ) || (VarNames.at(iLabel) == "msoftdropsafe_beta10" )  ) VarLabels.push_back("#beta = 1");
     else if ((VarNames.at(iLabel) == "msoftdrop_beta-10" ) || (VarNames.at(iLabel) == "msoftdropsafe_beta-10" )  ) VarLabels.push_back("#beta = -1");
-    else if ((VarNames.at(iLabel) == "m")) VarLabels.push_back("ungroomed");
+  
     
     else cerr << "Label " << VarNames.at(iLabel) << " is not correct" << endl; 
   }
@@ -106,7 +106,7 @@ void PUPlotter( string tag, string treeName, vector <string> var )
   TLegend  *leg ;
   if (tag!="softdrop")leg = new TLegend(0.88,0.7,0.68,0.9);
   else if (tag =="softdrop")leg = new TLegend(1.04,0.7,0.8,0.9);
-  TLegend  *leg2 = new TLegend(0.7,0.15,1.0,0.25);
+  TLegend  *leg2 = new TLegend(0.55,0.15,0.9,0.25);
   leg ->  SetTextSize(0.03);
   leg ->  SetFillStyle(0.);
   leg2 ->  SetFillStyle(0.);
@@ -282,7 +282,7 @@ void PUPlotter( string tag, string treeName, vector <string> var )
       gr2 -> SetMarkerSize(2);
       gr1 -> SetMarkerSize(2.);
       
-      leg2->AddEntry(gr1,"#sigma","p");
+      leg2->AddEntry(gr1,"fitted #sigma","p");
       leg2->AddEntry(gr2,"RMS","p");
    }
 
@@ -308,7 +308,7 @@ void PUPlotter( string tag, string treeName, vector <string> var )
   descriptionPave.SetBorderSize(0);
   descriptionPave.SetTextAlign(11);
   descriptionPave.SetTextSize(0.04);
-  descriptionPave.AddText("RSGravition #rightarrow WW, Anti-kT (R=0.8) ");
+  descriptionPave.AddText("RSGraviton #rightarrow WW, Anti-kT (R=0.8) ");
   descriptionPave.AddText("<n_{PU}>=40");
   descriptionPave.AddText("p_{T} > 300 GeV");
   descriptionPave.AddText("|#eta| < 2.5");
@@ -346,7 +346,7 @@ void PUPlotter( string tag, string treeName, vector <string> var )
   // Mass Response
   mg_ResponseMass -> Draw("AP");
   mg_ResponseMass -> GetXaxis() -> SetTitle("n_{PV}");
-  mg_ResponseMass -> GetYaxis() -> SetTitle("<m_{reco}  - m_{gen}> (GeV)");
+  mg_ResponseMass -> GetYaxis() -> SetTitle("<m_{reco}-m_{gen}> (GeV)");
   mg_ResponseMass -> GetYaxis() -> SetRangeUser(-20., 30.);
   leg -> Draw("SAME");
   leg2 -> Draw("SAME");
@@ -374,7 +374,7 @@ void PUPlotter( string tag, string treeName, vector <string> var )
   //RMS Response
   mg_RMSResponse -> Draw("AP");
   mg_RMSResponse -> GetXaxis() -> SetTitle("n_{PV}");
-  mg_RMSResponse -> GetYaxis() -> SetTitle("Resolution(m_{reco}  - m_{gen}) [GeV]");
+  mg_RMSResponse -> GetYaxis() -> SetTitle("Resolution(m_{reco}-m_{gen}) [GeV]");
   mg_RMSResponse -> GetYaxis() -> SetRangeUser(0., 30. );
   leg -> Draw("SAME");
   leg2 -> Draw("SAME");

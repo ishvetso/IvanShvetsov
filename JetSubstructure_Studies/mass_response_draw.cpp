@@ -145,10 +145,10 @@ void mass_response_draw( vstring treeNames, string Tag)
 	else if ((VarNames.at(iVar) == "mpruned_zcut_005_R_cut_050") || (VarNames.at(iVar) == "mprunedsafe_zcut_005_R_cut_050")) Labels.push_back("z_{cut}=0.05 R_{cut}=0.5");
 	else if ((VarNames.at(iVar) == "mpruned_zcut_005_R_cut_075") || (VarNames.at(iVar) == "mprunedsafe_zcut_005_R_cut_075")) Labels.push_back("z_{cut}=0.05 R_{cut}=0.75");
 	else if ((VarNames.at(iVar) == "mpruned_zcut_010_R_cut_075") || (VarNames.at(iVar) == "mprunedsafe_zcut_010_R_cut_075")) Labels.push_back("z_{cut}=0.1 R_{cut}=0.75");
-	else if ((VarNames.at(iVar) == "mtrim_Rtrim_020_Ptfrac_005") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_005")) Labels.push_back("r_{filt}=0.2 pT_{frac}=0.05");
-	else if ((VarNames.at(iVar) == "mtrim_Rtrim_010_Ptfrac_003") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_010_Ptfrac_003")) Labels.push_back("r_{filt}=0.1 pT_{frac}=0.03");
-	else if ((VarNames.at(iVar) == "mtrim_Rtrim_020_Ptfrac_003") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_003")) Labels.push_back("r_{filt}=0.2 pT_{frac}=0.03");
-	else if ((VarNames.at(iVar) == "mtrim_Rtrim_030_Ptfrac_003") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_030_Ptfrac_003")) Labels.push_back("r_{filt}=0.3 pT_{frac}=0.03");
+	else if ((VarNames.at(iVar) == "mtrim_Rtrim_020_Ptfrac_005") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_005")) Labels.push_back("r_{sub}=0.2 pT_{frac}=0.05");
+	else if ((VarNames.at(iVar) == "mtrim_Rtrim_010_Ptfrac_003") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_010_Ptfrac_003")) Labels.push_back("r_{sub}=0.1 pT_{frac}=0.03");
+	else if ((VarNames.at(iVar) == "mtrim_Rtrim_020_Ptfrac_003") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_020_Ptfrac_003")) Labels.push_back("r_{sub}=0.2 pT_{frac}=0.03");
+	else if ((VarNames.at(iVar) == "mtrim_Rtrim_030_Ptfrac_003") || (VarNames.at(iVar) == "mtrimsafe_Rtrim_030_Ptfrac_003")) Labels.push_back("r_{sub}=0.3 pT_{frac}=0.03");
 	else if ((VarNames.at(iVar) == "msoftdrop_beta10") || (VarNames.at(iVar) == "msoftdropsafe_beta10")) Labels.push_back("#beta=1");
 	else if ((VarNames.at(iVar) == "msoftdrop_beta00") || (VarNames.at(iVar) == "msoftdropsafe_beta00")) Labels.push_back("#beta=0");
 	else if ((VarNames.at(iVar) == "msoftdrop_beta20") || (VarNames.at(iVar) == "msoftdropsafe_beta20")) Labels.push_back("#beta=2");
@@ -182,7 +182,7 @@ void mass_response_draw( vstring treeNames, string Tag)
 	hist_tmp  -> SetLineColor(Colors.at(iVar));
 	hist_tmp  -> GetYaxis() -> SetTitleOffset(1.6);
 	hist_tmp  -> GetXaxis() -> SetTitle("m_{reco}-m_{gen} (GeV)");
-	hist_tmp  -> GetYaxis() -> SetTitle("events");
+	hist_tmp  -> GetYaxis() -> SetTitle("arbitrary units");
 	hist_tmp  -> SetLineWidth(2.);
 	hist_tmp  -> GetYaxis() -> SetRangeUser(0., 1.8*(hist_tmp -> GetBinContent(hist_tmp -> GetMaximumBin())));
 	hist_tmp  -> Draw("HISTSAME");
@@ -215,7 +215,7 @@ void mass_response_draw( vstring treeNames, string Tag)
       descriptionPave.SetBorderSize(0);
       descriptionPave.SetTextAlign(11);
       descriptionPave.SetTextSize(0.03);
-      descriptionPave.AddText("RSGravition #rightarrow WW, Anti-kT (R=0.8) ");
+      descriptionPave.AddText("RSGraviton #rightarrow WW, Anti-kT (R=0.8) ");
       descriptionPave.AddText("<n_{PU}>=40");
       descriptionPave.AddText("p_{T} > 300 GeV");
       descriptionPave.AddText("|#eta| < 2.5");

@@ -76,13 +76,13 @@ void summary(string inputFileList, vector <string> treeNames)
     
     std::string line;
 
-    string prefix = "root://eoscms.cern.ch/";
+    string prefix = "";
     string filename;
     
     int counter = 0;
     while(std::getline(ifs, line))
     {
-	filename = prefix + line;
+	filename =  line;
 	cout << filename << endl;
 	chain.Add(filename.c_str());
 	chain_gen.Add(filename.c_str());
@@ -143,22 +143,28 @@ void summary(string inputFileList, vector <string> treeNames)
       chain.GetEntry(i);
       chain_gen.GetEntry(i);
     
-      
+      //cout << eta -> size() << " " << pt -> size() << endl; 
       for (unsigned int iVar = 0; iVar < VarName.size(); ++iVar )
       {
-	for (unsigned int iE = 0; iE < (tmp.at(iVar)) -> size(); ++iE )
-	{
-	  cout << eta -> size() << " " << pt -> size() << endl; 
-	  if((isMatchedToBoson_tmp -> at(iE) == true) && ((pt -> at(iE))> 300.)  && ((fabs((eta -> at(iE)))) < 2.5 )  && ( imatch_tmp -> at(iE) != -1 )) 
+	//for (unsigned int iE = 0; iE < (tmp.at(iVar)) -> size(); ++iE )
+	//{
+	  if ((((tmp.at(iVar)) -> size()) == 0)) continue;
+	  if((isMatchedToBoson_tmp -> at(0) == true) && ((pt -> at(0)) > 300.)  && ((fabs(eta -> at(0))) < 2.5 )  && ( imatch_tmp -> at(0) != -1 )  ) 
 	  {  
-	    hists.at(iVar) -> Fill( (((tmp.at(iVar)) -> at(iE))) );
-	    hists_response.at(iVar) -> Fill( ((((tmp.at(iVar)) -> at(iE))) - (((tmp_gen.at(iVar)) -> at(iE)))) );
+	    hists.at(iVar) -> Fill( (((tmp.at(iVar)) -> at(0))) );
+	    hists_response.at(iVar) -> Fill( ((((tmp.at(iVar)) -> at(0))) - (((tmp_gen.at(iVar)) -> at(imatch_tmp -> at(0))))) );
 	  }
-	}
+	//}
 	  
 	(tmp.at(iVar)) -> clear();
 	(tmp_gen.at(iVar)) -> clear();
       }
+      
+      isMatchedToBoson_tmp -> clear();
+      pt -> clear();
+      imatch_tmp -> clear();
+      eta -> clear();
+      
     }
     
         

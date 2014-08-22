@@ -1,3 +1,6 @@
+#ifndef PU_BIN_PLOTTER
+#define PU_BIN_PLOTTER
+
 #include "TFile.h"
 #include "TTree.h"
 #include "TChain.h"
@@ -37,3 +40,4 @@ public:
    void SetBinParameters(Int_t Nbins_, Float_t xmin_, Float_t xmax_);
    vector <TH1F*>  ProduceHists(string treename);
 };  
+#endif
