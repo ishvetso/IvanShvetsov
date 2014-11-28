@@ -257,20 +257,18 @@ EDBRTreeMaker::analyze(const edm::Event& iEvent, const edm::EventSetup& iSetup)
    iEvent.getByLabel("egmGsfElectronIDs","cutBasedElectronID-CSA14-PU20bx25-V0-standalone-tight", MapElectronIDs);                    
    
    std::cout << "This is electron IDs " << MapElectronIDs -> size() << std::endl;
+   std::cout << "Electron IDs " <<  Electrons -> size() << std::endl;
    
-   for (unsigned int iEl = 0; iEl < Electrons -> size(); iEl ++)
-   {
-      std::cout << "ID " << (Electrons -> at(iEl)).electronID("eidTight") << std::endl;
-     for (unsigned int iID = 0; iID < (Electrons -> at(iEl)).electronIDs().size() ; iID ++)
-     {
-      std::cout << "ID " << (Electrons -> at(iEl)).electronIDs().at(iID).first << std::endl;
-     }
-   }
+   const auto& ele_refs = Electrons -> refVector();
    
+   for (const auto& el : ele_refs)
+  {
+      std::cout << "electron ID " << (*MapElectronIDs)[el] << std::endl;
+  }
    
-   std::cout << genParticles -> size() << std::endl;
+  
    
-   N_had_Wgen  = 0, N_lep_Wgen = 0 ;
+  N_had_Wgen  = 0, N_lep_Wgen = 0 ;
 
    
    DefineDecayChannel(genParticles, N_lep_Wgen , N_had_Wgen );

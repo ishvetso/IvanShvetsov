@@ -18,3 +18,11 @@ goodElectrons = cms.EDFilter("PATElectronSelector",
                              )
 
 eleSequence = cms.Sequence(isolatedElectrons+goodElectrons)
+
+electronIDs = cms.EDFilter("ElectronID",
+			   ValueMap_src = cms.InputTag("egmGsfElectronIDs","cutBasedElectronID-CSA14-PU20bx25-V0-standalone-tight"),
+                           electron_src = cms.InputTag("slimmedElectrons"),
+			    #False -> runs as producer 
+			      #True -> filters events
+			      filter_flag = cms.bool(False),
+			    )

@@ -20,7 +20,7 @@ Wtomunu = cms.EDProducer("EDBRWLeptonicProducer",
 
 
 Wtoenu = cms.EDProducer("EDBRWLeptonicProducer",
-                        leptons = cms.InputTag("goodElectrons"),
+                        leptons = cms.InputTag("electronIDs"),
                         MET = cms.InputTag("slimmedMETs"),
                         cut = cms.string("pt > 100")
                         )

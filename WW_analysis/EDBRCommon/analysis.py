@@ -6,7 +6,7 @@ process.maxEvents = cms.untracked.PSet(
 )
 
 process.options = cms.untracked.PSet(wantSummary = cms.untracked.bool(True))
-process.options = cms.untracked.PSet( allowUnscheduled = cms.untracked.bool(False) )
+process.options.allowUnscheduled = cms.untracked.bool(False) 
 
 
 option = 'RECO' # 'GEN' or 'RECO'
@@ -51,8 +51,6 @@ process.load('RecoEgamma.ElectronIdentification.egmGsfElectronIDs_cff')
 process.GlobalTag.globaltag = 'PLS170_V7AN1::All'
 process.egmGsfElectronIDs.physicsObjectSrc = cms.InputTag('slimmedElectrons')
 
-
-
 from RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_CSA14_PU20bx25_V0_cff import \
           cutBasedElectronID_CSA14_PU20bx25_V0_standalone_tight
 process.egmGsfElectronIDs.physicsObjectIDs = cms.VPSet( cms.PSet( idDefinition = cutBasedElectronID_CSA14_PU20bx25_V0_standalone_tight, idMD5 = cms.string('93968aee4532a06bb3dbaf06045725da')))
@@ -64,25 +62,9 @@ process.electronIDValueMapProducer.esReducedRecHitCollection = cms.InputTag('red
 process.electronIDValueMapProducer.src = cms.InputTag('slimmedElectrons')
 
 process.egmGsfElectronIDSequence = cms.Sequence(process.electronIDValueMapProducer * process.egmGsfElectronIDs)
-print process.egmGsfElectronIDs.dumpPython()
-#process.egmGsfElectronIDs.electronsArePAT = cms.bool(True)
-'''
-from PhysicsTools.SelectorUtils.tools.vid_id_tools import * #load python tools for importing VID modules
-#add the VID producer to the process
-switchOnVIDElectronIdProducer(process)
-#example of adding a single VID module to the producer
-from RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_CSA14_PU20bx25_V0_cff import \
-          cutBasedElectronID_CSA14_PU20bx25_V0_standalone_tight
-setupVIDElectronSelection(process,cutBasedElectronID_CSA14_PU20bx25_V0_standalone_tight)
-                         
-print "XXXXXXXXXXXX"
-print process.electronIDValueMapProducer.dumpPython()
-process.electronIDValueMapProducer.eeReducedRecHitCollection = cms.InputTag("reducedEgamma:reducedEERecHits")
-process.electronIDValueMapProducer.ebReducedRecHitCollection = cms.InputTag("reducedEgamma:reducedEBRecHits")
-process.electronIDValueMapProducer.esReducedRecHitCollection = cms.InputTag("reducedEgamma:reducedESRecHits")
-print process.electronIDValueMapProducer.dumpPython()
-print process.egmGsfElectronIDs.dumpPython()
-print "XXXXXXXXXXXX"'''
+
+
+
 
 process.leptonicVFilter = cms.EDFilter("CandViewCountFilter",
                                        src = cms.InputTag("leptonicV"),
@@ -97,7 +79,7 @@ process.hadronicVFilter = cms.EDFilter("CandViewCountFilter",
 
 
 process.leptonSequence = cms.Sequence(process.muSequence +
-                                      process.eleSequence +
+                                      process.electronIDs +
                                       process.leptonicVSequence +
                                       process.leptonicVFilter )
 
@@ -143,16 +125,8 @@ process.printTree = cms.EDAnalyzer("ParticleListDrawer",
   src = cms.InputTag("prunedGenParticles")
 )
 
+process.analysis = cms.Path( process.egmGsfElectronIDSequence  +   process.TightMuons + process.leptonSequence +   process.jetSequence +  process.treeDumper )
 
-process.analysis = cms.Path( process.egmGsfElectronIDSequence + process.TightMuons + process.leptonSequence +   process.jetSequence +  process.treeDumper )
-#process.analysis = cms.Path( egmGsfElectronIDSequence )
-
-
-
-### Source
-#process.load("ExoDiBosonResonances.EDBRCommon.simulation.DYJetsToLL_HT-600toInf")
-#process.load("ExoDiBosonResonances.EDBRCommon.simulation.RSGravToZZ_kMpl01_M-1000")
-#process.source.fileNames = ["file:/afs/cern.ch/work/i/ishvetso/RunII_preparation/samples/Wjets1.root",]
 process.maxEvents.input = 1000
 process.source = cms.Source("PoolSource",
     secondaryFileNames = cms.untracked.vstring(),
@@ -164,8 +138,8 @@ process.source = cms.Source("PoolSource",
 
 
 process.load("FWCore.MessageLogger.MessageLogger_cfi")
-process.MessageLogger.cerr.FwkReport.reportEvery = 1
-process.MessageLogger.cerr.FwkReport.limit = 99999999
+#process.MessageLogger.cerr.FwkReport.reportEvery = 100
+#process.MessageLogger.cerr.FwkReport.limit = 99999999
 
 
 '''process.out = cms.OutputModule("PoolOutputModule",
