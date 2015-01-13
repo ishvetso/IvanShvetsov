@@ -5,3 +5,5 @@ do lcg-cp -b -D srmv2  srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/
 done
 # to delete file
 lcg-del -b -v -l -D srmv2  srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/ishvetso/WWpt20_semileptonic_GENSIM_48.root
+# to "do ls"
+ lcg-ls srm://dcache-se-cms.desy.de:8443/srm/managerv2?SFN=/pnfs/desy.de/cms/tier2/store/user/ishvetso/Phys14-campaign/
