@@ -26,10 +26,11 @@ void Plotter::SetVar(vector <Var> variables_)
   variables = variables_;
 }
 
-void Plotter::Plotting()
+void Plotter::Plotting(std::string OutPrefix_)
 {
 	gStyle->SetOptStat(0);
 	gStyle->SetOptTitle(0);
+	setTDRStyle();
 	TCanvas *c1=  new TCanvas("c1","canvas",1200,800);
 	
 	
@@ -37,29 +38,29 @@ void Plotter::Plotting()
 	//beginning of cycle over variables
 	for (uint var_i = 0; var_i < variables.size(); ++ var_i )
 	{
-	  TPad *pad1 = new TPad("pad1","This is pad1",0.0,0.12,1.0,0.97);
+	  TPad *pad1 = new TPad("pad1","This is pad1",0.0,0.12,0.8,0.97);
 	  TPad *pad2 = new TPad("pad2","This is pad2",0.0,0.02,1.0,0.07);
 	  
 	  THStack *hs = new THStack("hs",(";"+ variables.at(var_i).VarName +";Number of events").c_str());
-	  TLegend *leg = new TLegend(0.8,0.8,0.9,0.9);
+	  c1 -> cd();
+	  TLegend *leg = new TLegend(0.8,0.93,0.98,0.8);
 	  leg ->  SetFillColor(kWhite);
-	  TH1D *hist_summed;
+	  TH1D *hist_summed = new TH1D();
 	//beginning of cycle over processes
 	  for (uint process_i = 0; process_i < samples.size(); process_i++)
 	  {
 	     TH1D *hist = new TH1D(((samples.at(process_i)).Processname + variables.at(var_i).VarName).c_str(),((samples.at(process_i)).Processname + variables.at(var_i).VarName).c_str(), Nbins, variables.at(var_i).Range.low, variables.at(var_i).Range.high);
 	    
-	     hist_summed = new TH1D(((samples.at(process_i)).Processname + variables.at(var_i).VarName + "summed").c_str(),((samples.at(process_i)).Processname + variables.at(var_i).VarName + "summed").c_str(), Nbins, variables.at(var_i).Range.low, variables.at(var_i).Range.high);
+	     *hist_summed = TH1D(((samples.at(process_i)).Processname + variables.at(var_i).VarName + "summed").c_str(),((samples.at(process_i)).Processname + variables.at(var_i).VarName + "summed").c_str(), Nbins, variables.at(var_i).Range.low, variables.at(var_i).Range.high);
 	    //beginning of cycle over files corresponding to each process
 	    for (uint file_i = 0; file_i < (samples.at(process_i)).filenames.size(); ++file_i)
 	    {
 	      cout << (samples.at(process_i)).filenames.at(file_i) << endl;
 	      TFile file(((samples.at(process_i)).filenames.at(file_i)).c_str(), "READ");
-	      TTree * tree = (TTree*)file.Get("treeDumper/Basic Info");
+	      TTree * tree = (TTree*)file.Get("Basic Info");
 	      TH1D *temp = new TH1D((((samples.at(process_i)).Processname)+ "_temp").c_str(),((samples.at(process_i)).Processname).c_str(), Nbins,variables.at(var_i).Range.low, variables.at(var_i).Range.high);
 	      tree ->Project(((samples.at(process_i)).Processname + "_temp").c_str(),(variables.at(var_i).VarName).c_str(), (samples.at(process_i).selection).c_str());
-	      hist -> Add(temp);
-	      std::cout << temp -> GetBinContent(20) << std::endl;
+	      hist -> Add(temp);	      
 	    }
 	    //end of cycle over files corresponding to each process
 	    hist -> SetFillStyle(2001);
@@ -69,7 +70,8 @@ void Plotter::Plotting()
 	    hist_summed -> Add(hist);
 	    
 	    
-	    leg->AddEntry(hist, (samples.at(process_i).Processname).c_str(),"f");	
+	    leg->AddEntry(hist, (samples.at(process_i).Processname).c_str(),"f");
+	   
 
 	  }
 	  //end of cycle over processes
@@ -102,19 +104,22 @@ void Plotter::Plotting()
 	    pad1 -> cd();
 	    hs->Draw("hist");
 	    if(withData) data -> Draw("E1 SAME");
+	    c1 -> cd();
 	    leg->Draw();
            //  hs->Draw(); I'm currently not sure, may be this line is needed for data, check when using data
 	    if( withData)
 	    {
 	      pad2 -> cd();
 
-	      for (uint iBin = 1; iBin <hist_summed -> GetNbinsX(); ++iBin)
+	      for (int iBin = 1; iBin <hist_summed -> GetNbinsX(); ++iBin)
 	      {
 		hist_summed -> SetBinContent(iBin, ((data -> GetBinContent(iBin)) - (hist_summed -> GetBinContent(iBin)))/(hist_summed -> GetBinContent(iBin)));
 	      }
 	      hist_summed -> Draw("hist");
 	    }
-	    c1 -> SaveAs((variables.at(var_i).VarName + ".png").c_str());
+	   
+	    CMS_lumi( c1, 4, 0 );
+	    c1 -> SaveAs((OutPrefix_ + variables.at(var_i).VarName + ".png").c_str());
 	    c1 -> Clear();
 	}
 	//end of cycle over variables
