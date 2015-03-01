@@ -20,8 +20,8 @@ void setTDRStyle() {
 // For the canvas:
   tdrStyle->SetCanvasBorderMode(0);
   tdrStyle->SetCanvasColor(kWhite);
-  tdrStyle->SetCanvasDefH(800); //Height of canvas
-  tdrStyle->SetCanvasDefW(1000); //Width of canvas
+  tdrStyle->SetCanvasDefH(600); //Height of canvas
+  tdrStyle->SetCanvasDefW(600); //Width of canvas
   tdrStyle->SetCanvasDefX(0);   //POsition on screen
   tdrStyle->SetCanvasDefY(0);
 
@@ -43,7 +43,7 @@ void setTDRStyle() {
   tdrStyle->SetFrameLineColor(1);
   tdrStyle->SetFrameLineStyle(1);
   tdrStyle->SetFrameLineWidth(1);
-
+  
 // For the histo:
   // tdrStyle->SetHistFillColor(1);
   // tdrStyle->SetHistFillStyle(0);
@@ -54,17 +54,13 @@ void setTDRStyle() {
   // tdrStyle->SetNumberContours(Int_t number = 20);
 
   tdrStyle->SetEndErrorSize(2);
-  //tdrStyle->SetErrorMarker(20);
+  // tdrStyle->SetErrorMarker(20);
   //tdrStyle->SetErrorX(0.);
-
-  tdrStyle->SetMarkerStyle(20);
   
-  tdrStyle->SetLegendFont(42);
+  //tdrStyle->SetMarkerStyle(20);// this line was causing me trouble with line style of histogram
   
-  tdrStyle->SetTextFont(42);
-
 //For the fit/function:
-   tdrStyle->SetOptFit(1);
+  tdrStyle->SetOptFit(1);
   tdrStyle->SetFitFormat("5.4g");
   tdrStyle->SetFuncColor(2);
   tdrStyle->SetFuncStyle(1);
@@ -94,11 +90,11 @@ void setTDRStyle() {
   tdrStyle->SetPadTopMargin(0.05);
   tdrStyle->SetPadBottomMargin(0.13);
   tdrStyle->SetPadLeftMargin(0.16);
-  tdrStyle->SetPadRightMargin(0.04);
+  tdrStyle->SetPadRightMargin(0.02);
 
 // For the Global title:
 
-  tdrStyle->SetOptTitle(0); // initially it was "0" means no global title
+  tdrStyle->SetOptTitle(0);
   tdrStyle->SetTitleFont(42);
   tdrStyle->SetTitleColor(1);
   tdrStyle->SetTitleTextColor(1);
@@ -115,7 +111,7 @@ void setTDRStyle() {
 
   tdrStyle->SetTitleColor(1, "XYZ");
   tdrStyle->SetTitleFont(42, "XYZ");
-  tdrStyle->SetTitleSize(0.05, "XYZ");
+  tdrStyle->SetTitleSize(0.06, "XYZ");
   // tdrStyle->SetTitleXSize(Float_t size = 0.02); // Another way to set the size?
   // tdrStyle->SetTitleYSize(Float_t size = 0.02);
   tdrStyle->SetTitleXOffset(0.9);
@@ -127,8 +123,7 @@ void setTDRStyle() {
   tdrStyle->SetLabelColor(1, "XYZ");
   tdrStyle->SetLabelFont(42, "XYZ");
   tdrStyle->SetLabelOffset(0.007, "XYZ");
-  tdrStyle->SetLabelSize(0.045, "XYZ");
-  tdrStyle->SetTitleSize(0.06, "XYZ");
+  tdrStyle->SetLabelSize(0.05, "XYZ");
 
 // For the axis:
 
@@ -157,6 +152,9 @@ void setTDRStyle() {
   // tdrStyle->SetPalette(Int_t ncolors = 0, Int_t* colors = 0);
   // tdrStyle->SetTimeOffset(Double_t toffset);
   // tdrStyle->SetHistMinimumZero(kTRUE);
+
+  tdrStyle->SetHatchesLineWidth(5);
+  tdrStyle->SetHatchesSpacing(0.05);
 
   tdrStyle->cd();
 
