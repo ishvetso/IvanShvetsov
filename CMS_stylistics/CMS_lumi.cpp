@@ -1,8 +1,9 @@
 #include "CMS_lumi.h"
 
-void CMS_lumi(TPad* pad1, int iPeriod, int iPosX )
+void 
+CMS_lumi( TPad* pad, int iPeriod, int iPosX )
 {            
-  bool outOfFrame    = true;
+  bool outOfFrame    = false;
   if( iPosX/10==0 ) 
     {
       outOfFrame = true;
@@ -18,15 +19,15 @@ void CMS_lumi(TPad* pad1, int iPeriod, int iPosX )
   if( iPosX == 0  ) relPosX = 0.12;
   int align_ = 10*alignX_ + alignY_;
 
-  float H = pad1 -> GetWh();
-  float W = pad1 ->  GetWw();
-  float l = pad1 ->  GetLeftMargin();
-  float t = pad1 ->  GetTopMargin();
-  float r = pad1 ->  GetRightMargin();
-  float b = pad1 ->  GetBottomMargin();
+  float H = pad->GetWh();
+  float W = pad->GetWw();
+  float l = pad->GetLeftMargin();
+  float t = pad->GetTopMargin();
+  float r = pad->GetRightMargin();
+  float b = pad->GetBottomMargin();
   //  float e = 0.025;
 
-  pad1 -> cd();
+  pad->cd();
 
   TString lumiText;
   if( iPeriod==1 )
@@ -50,7 +51,7 @@ void CMS_lumi(TPad* pad1, int iPeriod, int iPosX )
   else if ( iPeriod==4 )
     {
       lumiText += lumi_13TeV;
-      lumiText += "13 TeV";
+      lumiText += " 13 TeV";
     }
   else if ( iPeriod==7 )
     { 
@@ -70,7 +71,7 @@ void CMS_lumi(TPad* pad1, int iPeriod, int iPosX )
       lumiText += "8 TeV";
     }
    
-  std::cout << lumiText << std::endl;
+  cout << lumiText << endl;
 
   TLatex latex;
   latex.SetNDC();
@@ -92,7 +93,7 @@ void CMS_lumi(TPad* pad1, int iPeriod, int iPosX )
       latex.DrawLatex(l,1-t+lumiTextOffset*t,cmsText);
     }
   
-  pad1 -> cd();
+  pad->cd();
 
   float posX_=0;
   if( iPosX%10<=1 )
@@ -124,7 +125,7 @@ void CMS_lumi(TPad* pad1, int iPeriod, int iPosX )
 	  pad_logo->cd();
 	  CMS_logo->Draw("X");
 	  pad_logo->Modified();
-	  pad1 -> cd();
+	  pad->cd();
 	}
       else
 	{
@@ -153,5 +154,5 @@ void CMS_lumi(TPad* pad1, int iPeriod, int iPosX )
       latex.SetTextAlign(align_);
       latex.DrawLatex(posX_, posY_, extraText);      
     }
-  
-};
+  return;
+}

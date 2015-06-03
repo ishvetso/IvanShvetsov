@@ -1,9 +1,9 @@
-#include <TPad.h>
+#include "TPad.h"
 #include "TLatex.h"
+#include "TLine.h"
 #include "TBox.h"
 #include "TASImage.h"
-#include <stdio.h>
-#include <iostream>
+
 //
 // Global variables
 //
@@ -33,9 +33,6 @@ TString lumi_13TeV = "";
 TString lumi_8TeV  = "19.7 fb^{-1}";
 TString lumi_7TeV  = "5.1 fb^{-1}";
 
-bool drawLogo      = true;
+bool drawLogo      = false;
 
-
-TPad testpad;
-
-void CMS_lumi(TPad* pad1, int iPeriod, int iPosX );
+void CMS_lumi( TPad* pad, int iPeriod=3, int iPosX=10 );
