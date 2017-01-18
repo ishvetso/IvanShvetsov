@@ -13,15 +13,15 @@ ReplaceStringInFile(){
  rm $filenameNoFormat"-compressed.pdf" $filenameNoFormat"-new.pdf"
 }
 
-stringToReplace=$1
+stringToReplace=$2
 ToReplace=$(echo $stringToReplace| tr " " "\n")
-
+cd $1
 for iFile in *.pdf
 do 
   echo $iFile
   for iToReplace in $ToReplace
   do
-    ReplaceStringInFile $iFile $iToReplace $2
+    ReplaceStringInFile $iFile $iToReplace $3
   done
 done
 
