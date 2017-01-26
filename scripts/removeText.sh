@@ -1,6 +1,6 @@
 #!/bin/bash
-
-# function removes a specified string (argument $2) with a new string (argument $3) in a given file (argument $2)
+# for editing PDF files
+# function removes a specified string (argument $2) with a new string (argument $3) in a given PDF file (argument $2)
 
 ReplaceStringInFile(){
  fileName=$1
